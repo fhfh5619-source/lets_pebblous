@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pebblous | Different Shapes of Pebbles</title>
+  
+  <!-- Pretendard 폰트 불러오기 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <style>
+    :root {
+      --bg-stone: #F5F4F0;
+      --bg-card: #FAF9F6;
+      --text-main: #1D1D1F;
+      --text-muted: #7E7E82;
+      --pebble-blue: #4A6B82;
+      --pebble-dark: #222225;
+      --pebble-accent: #E8ECEF;
+      --border-soft: rgba(0, 0, 0, 0.07);
+      --radius-pebble-1: 30px 50px 35px 60px / 50px 30px 60px 40px;
+      --radius-pebble-2: 60px 40px 50px 30px / 40px 60px 30px 50px;
+      --radius-pebble-btn: 35px 20px 30px 25px / 25px 35px 25px 30px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-stone);
+      color: var(--text-main);
+      line-height: 1.6;
+      word-break: keep-all;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(245, 244, 240, 0.88);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-soft);
+      padding: 18px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo img {
+      height: 38px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-cta {
+      background-color: var(--pebble-dark);
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: var(--radius-pebble-btn);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-cta:hover {
+      background-color: var(--pebble-blue);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 90px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: #EAE8E2;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pebble-blue);
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--pebble-blue);
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background-color: var(--pebble-dark);
+      color: #fff;
+      padding: 15px 32px;
+      border-radius: var(--radius-pebble-btn);
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.25s;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--pebble-blue);
+      box-shadow: 0 8px 20px rgba(74, 107, 130, 0.25);
+    }
+
+    .btn-secondary {
+      background-color: #fff;
+      color: var(--text-main);
+      padding: 15px 32px;
+      border-radius: var(--radius-pebble-btn);
+      font-size: 1rem;
+      font-weight: 600;
+      border: 1px solid var(--border-soft);
+      transition: all 0.25s;
+    }
+
+    .btn-secondary:hover {
+      background: #ECEAE4;
+    }
+
+    /* Pebble Graphic Shapes */
+    .pebble-deco-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 50px;
+      opacity: 0.9;
+    }
+
+    .pebble-blob {
+      background: linear-gradient(135deg, #e4e2dc, #d5d9de);
+      transition: all 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .pebble-1 { width: 110px; height: 80px; border-radius: var(--radius-pebble-1); }
+    .pebble-2 { width: 140px; height: 100px; border-radius: var(--radius-pebble-2); background: linear-gradient(145deg, #ced7df, #95a8b7); color: #fff; }
+    .pebble-3 { width: 95px; height: 75px; border-radius: var(--radius-pebble-btn); }
+
+    /* Story Section */
+    .story {
+      padding: 90px 0;
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      background: #ECEAE3;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .story-text h2 {
+      font-size: 2.2rem;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .story-text p {
+      font-size: 1.05rem;
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    .story-card-pebble {
+      background: var(--bg-card);
+      padding: 40px;
+      border-radius: 40px 60px 45px 50px / 50px 40px 60px 45px;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+
+    .quote-box {
+      font-style: italic;
+      color: var(--pebble-blue);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    /* Persona x MBTI Section */
+    .persona-section {
+      padding: 100px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-head h2 {
+      font-size: 2.3rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border-radius: var(--radius-pebble-btn);
+      background: #E8E6DF;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--pebble-blue);
+      color: #fff;
+    }
+
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+    }
+
+    .persona-card {
+      background: var(--bg-card);
+      border-radius: 28px;
+      padding: 30px;
+      border: 1px solid var(--border-soft);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .persona-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.05);
+    }
+
+    .persona-icon-pebble {
+      width: 50px;
+      height: 40px;
+      background: var(--pebble-accent);
+      border-radius: var(--radius-pebble-btn);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--pebble-blue);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .persona-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .persona-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--pebble-blue);
+      background: rgba(74, 107, 130, 0.1);
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .persona-desc {
+      font-size: 0.92rem;
+      color: #666;
+      margin-bottom: 18px;
+    }
+
+    .style-picks {
+      background: #F1EFEA;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+    }
+
+    .style-picks strong {
+      color: var(--pebble-dark);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Event Section (Smore Reference Form) */
+    .event-section {
+      padding: 100px 0;
+      background: #EFECE6;
+      position: relative;
+    }
+
+    .event-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 36px;
+      padding: 45px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+      border: 1px solid var(--border-soft);
+    }
+
+    .event-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .event-badge {
+      display: inline-block;
+      padding: 5px 14px;
+      background: #D94848;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .event-header h2 {
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .event-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: #ECECEE;
+      border-radius: 999px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 25%;
+      background: var(--pebble-blue);
+      transition: width 0.3s ease;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.35s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .option-grid {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .option-card {
+      border: 1.5px solid #E5E5E7;
+      padding: 16px 20px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-card:hover {
+      border-color: var(--pebble-blue);
+      background: #F7FAFC;
+    }
+
+    .option-card.selected {
+      border-color: var(--pebble-blue);
+      background: #F0F5F8;
+      font-weight: 600;
+    }
+
+    .form-input-group {
+      margin-bottom: 16px;
+    }
+
+    .form-input-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .form-input-group input, .form-input-group select {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1.5px solid #E3E3E7;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .form-input-group input:focus, .form-input-group select:focus {
+      border-color: var(--pebble-blue);
+    }
+
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    .result-box {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .result-pebble {
+      width: 110px;
+      height: 90px;
+      background: linear-gradient(135deg, #4A6B82, #2c4456);
+      border-radius: var(--radius-pebble-1);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.8rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #1B1B1D;
+      color: #8C8C92;
+      padding: 60px 0 30px;
+      font-size: 0.88rem;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand h4 {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 25px;
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .story-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .event-wrapper { padding: 25px; border-radius: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container nav-inner">
+      <a href="#" class="brand-logo">
+        <img src="input_file_0.png" alt="pebblous logo" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:1.5rem;letter-spacing:-0.04em;\'>pebbl●us</span>'">
+      </a>
+      <nav class="nav-links">
+        <a href="#story">Brand Story</a>
+        <a href="#persona">Persona × MBTI</a>
+        <a href="#event">연말 진단 이벤트</a>
+      </nav>
+      <a href="#event" class="nav-cta">스타일 진단받기</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-badge">DIFFERENT SHAPES OF PEBBLES</span>
+      <h1>세상에 같은 조약돌이 없듯,<br>패션도 <span>나만의 모양</span>으로</h1>
+      <p>조약돌 저마다의 결이 아름답듯, 당신의 내면 페르소나와 골격에 꼭 맞춘 새로운 나를 찾아보세요.</p>
+      
+      <div class="hero-buttons">
+        <a href="#event" class="btn-primary">연말 한정 3대 진단 무료 신청</a>
+        <a href="#persona" class="btn-secondary">페르소나별 패션 둘러보기</a>
+      </div>
+
+      <div class="pebble-deco-wrap">
+        <div class="pebble-blob pebble-1">Smooth</div>
+        <div class="pebble-blob pebble-2">Unique Pebble</div>
+        <div class="pebble-blob pebble-3">Minimal</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Story Section -->
+  <section class="story" id="story">
+    <div class="container story-grid">
+      <div class="story-text">
+        <h2>왜 조약돌(Pebble)일까요?</h2>
+        <p>파도와 바람에 깎이며 시간의 흐름을 품은 조약돌은 세상 어디에도 같은 형태, 같은 색을 가진 것이 없습니다.</p>
+        <p>pebblous는 획일화된 유행을 따르는 패션 대신, 당신이 가진 고유한 체형의 곡선과 내면의 성향(페르소나)이 조화를 이루는 단 하나의 맞춤 스타일을 지향합니다.</p>
+      </div>
+      <div class="story-card-pebble">
+        <div class="quote-box">"Fashion is the shape of your inner self."</div>
+        <p style="color:#555; font-size:0.95rem;">당신의 체형 골격과 퍼스널 컬러, 그리고 MBTI와 페르소나가 결합되어 완성되는 세상에서 가장 편안하고 감각적인 실루엣을 경험하세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Persona x MBTI Section -->
+  <section class="persona-section" id="persona">
+    <div class="container">
+      <div class="section-head">
+        <h2>내 안의 페르소나 찾기</h2>
+        <p>나의 본질적인 욕구와 라이프스타일을 담아낸 9가지 페르소나 컬렉션</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterPersona('all')">전체보기</button>
+        <button class="filter-btn" onclick="filterPersona('minimal')">미니멀 / 클래식</button>
+        <button class="filter-btn" onclick="filterPersona('creative')">개성 / 자유</button>
+        <button class="filter-btn" onclick="filterPersona('active')">도전 / 활동</button>
+      </div>
+
+      <div class="persona-grid">
+        <!-- 1. The Minimalist -->
+        <div class="persona-card" data-category="minimal">
+          <div class="persona-icon-pebble">01</div>
+          <span class="persona-tag">원칙과 절제</span>
+          <h3>The Minimalist</h3>
+          <p class="persona-desc">군더더기 없는 완벽한 테일러링과 정돈된 실루엣에서 진정한 아름다움을 느끼는 페르소나</p>
+          <div class="style-picks">
+            <strong>추천 MBTI: INTJ, ISTJ</strong>
+            <span>슬림 스트레이트 울 셋업, 콰이어트 럭셔리 셔츠</span>
+          </div>
+        </div>
+
+        <!-- 2. The Free Soul -->
+        <div class="persona-card" data-category="creative">
+          <div class="persona-icon-pebble">02</div>
+          <span class="persona-tag">감성과 예술</span>
+          <h3>The Free Soul</h3>
+          <p class="persona-desc">정형화된 공식을 거부하고 나만의 무드와 독창적인 컬러 조합으로 개성을 노래하는 페르소나</p>
+          <div class="style-picks">
+            <strong>추천 MBTI: INFP, ISFP</strong>
+            <span>빈티지 질감 니트, 보헤미안 롱스커트, 유니크 악세서리</span>
+          </div>
+        </div>
+
+        <!-- 3. The Explorer -->
+        <div class="persona-card" data-category="active">
+          <div class="persona-icon-pebble">03</div>
+          <span class="persona-tag">모험과 자유</span>
+          <h3>The Explorer</h3>
+          <p class="persona-desc">새로운 경험과 영감을 찾아 움직이며, 활동성과 세련된 감각을 동시에 추구하는 페르소나</p>
+          <div class="style-picks">
+            <strong>추천 MBTI: ENFP, ENTP</strong>
+            <span>고프코어 바람막이, 카고 테크웨어, 오버핏 조거</span>
+          </div>
+        </div>
+
+        <!-- 4. The Trendsetter -->
+        <div class="persona-card" data-category="active">
+          <div class="persona-icon-pebble">04</div>
+          <span class="persona-tag">성취와 매력</span>
+          <h3>The Trendsetter</h3>
+          <p class="persona-desc">모던한 파워 드레싱과 도시적 감각으로 시선을 사로잡는 당당한 페르소나</p>
+          <div class="style-picks">
+            <strong>추천 MBTI: ENTJ, ESTP</strong>
+            <span>숄더 패드 블레이저, 와이드 슬랙스, 앵클 부츠</span>
+          </div>
+        </div>
+
+        <!-- 5. The Warm Giver -->
+        <div class="persona-card" data-category="minimal">
+          <div class="persona-icon-pebble">05</div>
+          <span class="persona-tag">친화와 온기</span>
+          <h3>The Warm Giver</h3>
+          <p class="persona-desc">보는 사람마저 편안하게 만드는 포근한 텍스처와 부드러운 파스텔 톤의 페르소나</p>
+          <div class="style-picks">
+            <strong>추천 MBTI: ENFJ, ESFJ</strong>
+            <span>캐시미어 케이블 가디건, 크림톤 코듀로이 팬츠</span>
+          </div>
+        </div>
+
+        <!-- 6. The Peaceful -->
+        <div class="persona-card" data-category="creative">
+          <div class="persona-icon-pebble">06</div>
+          <span class="persona-tag">조화와 안식</span>
+          <h3>The Peaceful</h3>
+          <p class="persona-desc">구속받지 않는 릴렉스 핏과 자연을 닮은 내추럴 톤으로 마음의 평화를 담는 페르소나</p>
+          <div class="style-picks">
+            <strong>추천 MBTI: INTP, INFJ</strong>
+            <span>루즈핏 오가닉 코튼 셔츠, 뉴트럴 톤 이지웨어</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Event Section (Smore style Form) -->
+  <section class="event-section" id="event">
+    <div class="container">
+      <div class="event-wrapper">
+        <div class="event-header">
+          <span class="event-badge">LIMITED EVENT</span>
+          <h2>연말 스페셜 스타일 진단</h2>
+          <p>퍼스널 컬러 + 골격 체형 + 1:1 맞춤 페르소나 스타일링 (선착순 무료)</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <!-- STEP 1: Persona Preference -->
+        <div class="form-step active" id="step1">
+          <div class="step-title">Q1. 평소 옷을 입을 때 가장 중요하게 생각하는 것은?</div>
+          <div class="option-grid">
+            <div class="option-card" onclick="selectOption(this, 's1')">
+              <span>군더더기 없는 단정함과 핏 (Minimalist)</span>
+              <span>🪨</span>
+            </div>
+            <div class="option-card" onclick="selectOption(this, 's1')">
+              <span>나만의 독보적인 감성과 디테일 (Free Soul)</span>
+              <span>🎨</span>
+            </div>
+            <div class="option-card" onclick="selectOption(this, 's1')">
+              <span>언제든 편안하게 움직일 수 있는 자유로움 (Explorer)</span>
+              <span>🌿</span>
+            </div>
+          </div>
+          <div class="step-nav" style="justify-content: flex-end;">
+            <button class="btn-primary" onclick="nextStep(2)">다음 단계 ➔</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Body Skeleton -->
+        <div class="form-step" id="step2">
+          <div class="step-title">Q2. 거울을 봤을 때 체형의 가장 두드러진 특징은? (골격 진단)</div>
+          <div class="option-grid">
+            <div class="option-card" onclick="selectOption(this, 's2', '스트레이트')">
+              <div>
+                <strong>스트레이트 타입</strong>
+                <p style="font-size:0.85rem;color:#777;">상체 중심 볼륨감, 탄력 있는 피부결, 두께감 있는 심플한 옷이 어울림</p>
+              </div>
+            </div>
+            <div class="option-card" onclick="selectOption(this, 's2', '웨이브')">
+              <div>
+                <strong>웨이브 타입</strong>
+                <p style="font-size:0.85rem;color:#777;">여리여리한 쇄골 라인, 얇은 상체, 부드럽고 가벼운 레이어드가 어울림</p>
+              </div>
+            </div>
+            <div class="option-card" onclick="selectOption(this, 's2', '내추럴')">
+              <div>
+                <strong>내추럴 타입</strong>
+                <p style="font-size:0.85rem;color:#777;">도드라진 관절과 프레임, 오버사이즈와 캐주얼 믹스매치가 어울림</p>
+              </div>
+            </div>
+          </div>
+          <div class="step-nav">
+            <button class="btn-secondary" onclick="prevStep(1)">이전</button>
+            <button class="btn-primary" onclick="nextStep(3)">다음 단계 ➔</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Personal Color -->
+        <div class="form-step" id="step3">
+          <div class="step-title">Q3. 얼굴빛을 가장 돋보이게 하는 분위기는? (퍼스널 컬러)</div>
+          <div class="option-grid">
+            <div class="option-card" onclick="selectOption(this, 's3', '웜톤')">
+              <span>아이보리, 카멜, 골드 등 온화하고 따뜻한 톤 (Warm)</span>
+              <span>☀️</span>
+            </div>
+            <div class="option-card" onclick="selectOption(this, 's3', '쿨톤')">
+              <span>순백색 화이트, 차콜, 실버 등 차분하고 세련된 톤 (Cool)</span>
+              <span>❄️</span>
+            </div>
+          </div>
+          <div class="step-nav">
+            <button class="btn-secondary" onclick="prevStep(2)">이전</button>
+            <button class="btn-primary" onclick="nextStep(4)">다음 단계 ➔</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Application Form -->
+        <div class="form-step" id="step4">
+          <div class="step-title">진단 리포트를 받아보실 정보를 입력해주세요</div>
+          <div class="form-input-group">
+            <label>성함 또는 닉네임</label>
+            <input type="text" id="userName" placeholder="조약돌">
+          </div>
+          <div class="form-input-group">
+            <label>MBTI 유형</label>
+            <select id="userMBTI">
+              <option value="INFP">INFP</option>
+              <option value="ENFP">ENFP</option>
+              <option value="INTJ">INTJ</option>
+              <option value="ENTJ">ENTJ</option>
+              <option value="ISFP">ISFP</option>
+              <option value="ESFP">ESFP</option>
+              <option value="INFJ">INFJ</option>
+              <option value="기타">기타 MBTI</option>
+            </select>
+          </div>
+          <div class="form-input-group">
+            <label>리포트 수신 연락처 (휴대폰 번호)</label>
+            <input type="tel" id="userPhone" placeholder="010-0000-0000">
+          </div>
+          <div class="step-nav">
+            <button class="btn-secondary" onclick="prevStep(3)">이전</button>
+            <button class="btn-primary" onclick="submitForm()">진단 결과 확인 및 신청</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: Result Card -->
+        <div class="form-step" id="step5">
+          <div class="result-box">
+            <div class="result-pebble">✨</div>
+            <h3 style="font-size:1.6rem; margin-bottom:10px;" id="resultTitle">당신만의 조약돌을 빚어냈습니다</h3>
+            <p style="color:#666; margin-bottom:24px;" id="resultDesc">
+              작성하신 성향을 바탕으로 전문 스타일리스트가 분석한 <strong>'1:1 연말 스타일링 PDF 가이드북'</strong>이 문자로 전달될 예정입니다.
+            </p>
+            <div style="background:#F4F3EE; padding:20px; border-radius:20px; text-align:left; margin-bottom:25px;">
+              <p style="font-size:0.9rem; margin-bottom:4px;">🎁 <strong>연말 이벤트 혜택:</strong> pebblous 전 상품 15% VIP 쿠폰 발급</p>
+              <p style="font-size:0.85rem; color:#888;">쿠폰 코드: <span style="font-family:monospace; font-weight:bold; color:var(--pebble-blue);">PEBBLOUS2024</span></p>
+            </div>
+            <button class="btn-primary" onclick="resetForm()">처음으로 돌아가기</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>pebblous</h4>
+          <p>Different shapes of pebbles.<br>당신만의 유일한 형태를 존중하는 패션 레이블.</p>
+        </div>
+        <div>
+          <h5 style="color:#fff; margin-bottom:12px;">고객 문의</h5>
+          <p>contact@pebblous.style</p>
+          <p>월-금 10:00 - 18:00</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; pebblous. All Rights Reserved. Different Shapes of Pebbles.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Simple Interactivity JS -->
+  <script>
+    // Persona Filter
+    function filterPersona(cat) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.persona-card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Step-by-step Survey Flow
+    let currentStep = 1;
+    let selectedSkeleton = '웨이브';
+    let selectedColor = '쿨톤';
+
+    function selectOption(element, group, val) {
+      const parent = element.parentElement;
+      const options = parent.querySelectorAll('.option-card');
+      options.forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+
+      if (group === 's2') selectedSkeleton = val;
+      if (group === 's3') selectedColor = val;
+    }
+
+    function updateProgress(step) {
+      const fill = document.getElementById('progressFill');
+      const percentage = (step / 5) * 100;
+      fill.style.width = percentage + '%';
+    }
+
+    function nextStep(step) {
+      document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+      document.getElementById('step' + step).classList.add('active');
+      currentStep = step;
+      updateProgress(step);
+    }
+
+    function prevStep(step) {
+      document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+      document.getElementById('step' + step).classList.add('active');
+      currentStep = step;
+      updateProgress(step);
+    }
+
+    function submitForm() {
+      const name = document.getElementById('userName').value || '회원';
+      const mbti = document.getElementById('userMBTI').value;
+
+      document.getElementById('resultTitle').innerText = `${name}님을 위한 [${mbti} × ${selectedSkeleton} × ${selectedColor}] 조약돌`;
+      document.getElementById('resultDesc').innerHTML = `
+        <strong>${name}</strong>님의 고유한 골격(${selectedSkeleton})과 피부 톤(${selectedColor}), 그리고 ${mbti} 성향에 맞는 1:1 전담 스타일링 가이드가 준비되었습니다.
+      `;
+      nextStep(5);
+    }
+
+    function resetForm() {
+      document.getElementById('userName').value = '';
+      document.getElementById('userPhone').value = '';
+      nextStep(1);
+    }
+  </script>
+</body>
+</html>
