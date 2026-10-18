@@ -4,7 +4,7 @@ const path = require('path');
 
 const app = express();
 // Render 환경 변수 PORT를 반드시 사용해야 배포가 완료됩니다.
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 const DATA_FILE = path.join(__dirname, 'applications.json');
 
 app.use(express.json());
