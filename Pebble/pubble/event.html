@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>pebblous 연말 스페셜 진단</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Pretendard, -apple-system, sans-serif; }
+    body { background: #ECEAE4; color: #1e1e20; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+
+    /* Smore-like Mobile Card Container */
+    .smore-app {
+      width: 100%; max-width: 440px; min-height: 90vh; background: #FAF9F6;
+      border-radius: 28px; box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      position: relative; overflow: hidden; display: flex; flex-direction: column;
+    }
+
+    /* Top Progress Bar */
+    .progress-bar-container { width: 100%; height: 5px; background: #e3e1da; }
+    .progress-bar { height: 100%; width: 0%; background: #4A6B82; transition: width 0.3s ease; }
+
+    .header-bar {
+      padding: 16px 22px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.85rem; font-weight: 700; color: #666;
+    }
+    .header-bar a { text-decoration: none; color: #999; }
+
+    /* Step Page */
+    .step-page { display: none; padding: 32px 24px; flex: 1; flex-direction: column; animation: slideUp 0.3s ease; }
+    .step-page.active { display: flex; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .q-number { font-size: 0.85rem; font-weight: 800; color: #4A6B82; margin-bottom: 8px; text-transform: uppercase; }
+    .q-title { font-size: 1.45rem; font-weight: 800; line-height: 1.35; margin-bottom: 10px; letter-spacing: -0.02em; }
+    .q-sub { font-size: 0.92rem; color: #777; margin-bottom: 28px; }
+
+    /* Options */
+    .option-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: auto; }
+    .option-btn {
+      background: #fff; border: 1.5px solid #E6E4DD; border-radius: 18px;
+      padding: 18px 20px; text-align: left; font-size: 0.98rem; font-weight: 600;
+      color: #333; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between;
+    }
+    .option-btn:hover { border-color: #4A6B82; background: #F3F6F8; }
+    .option-btn.selected { border-color: #4A6B82; background: #EBF1F5; color: #4A6B82; font-weight: 700; }
+
+    /* Inputs */
+    .input-field {
+      width: 100%; padding: 16px 18px; border: 1.5px solid #E0DED7;
+      border-radius: 16px; font-size: 1rem; margin-bottom: 16px; outline: none; background: #fff;
+    }
+    .input-field:focus { border-color: #4A6B82; }
+
+    /* Bottom Nav Buttons */
+    .bottom-nav { margin-top: 24px; display: flex; gap: 10px; }
+    .btn-next {
+      flex: 1; background: #222225; color: #fff; padding: 18px;
+      border-radius: 18px; font-size: 1.05rem; font-weight: 700; border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-next:hover { background: #4A6B82; }
+    .btn-prev {
+      background: #E8E6DF; color: #555; padding: 18px 20px;
+      border-radius: 18px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer;
+    }
+
+    /* Intro & Result */
+    .intro-badge { display: inline-block; padding: 5px 12px; background: #D94848; color: #fff; border-radius: 999px; font-size: 0.75rem; font-weight: 700; margin-bottom: 14px; }
+    .result-stone {
+      width: 90px; height: 75px; background: linear-gradient(135deg, #4A6B82, #293d4a);
+      border-radius: 35px 20px 30px 25px / 25px 35px 25px 30px; margin: 20px auto;
+      display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff;
+    }
+    .coupon-card { background: #EFECE6; border-radius: 18px; padding: 18px; text-align: left; margin: 20px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="smore-app">
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="header-bar">
+      <span>pebblous 2024</span>
+      <a href="/">홈으로 ✕</a>
+    </div>
+
+    <!-- PAGE 0: INTRO -->
+    <div class="step-page active" id="page0">
+      <div>
+        <span class="intro-badge">연말 한정 무료 혜택</span>
+        <h1 class="q-title">나만의 조약돌을 찾는<br>퍼스널 3종 스타일 진단</h1>
+        <p class="q-sub">골격 체형 진단 + 퍼스널 컬러 + MBTI 맞춤 1:1 스타일링 솔루션을 무료로 받아보세요.</p>
+        <div style="background:#fff; border-radius:18px; padding:18px; margin-bottom:20px; border:1px solid #e7e5de; font-size:0.9rem; color:#555;">
+          ⏱ <strong>소요 시간:</strong> 약 1분<br>
+          🎁 <strong>참여 혜택:</strong> 1:1 맞춤 PDF 리포트 + 15% VIP 할인 쿠폰
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="btn-next" onclick="goToPage(1)">진단 시작하기 ➔</button>
+      </div>
+    </div>
+
+    <!-- PAGE 1: 골격 진단 -->
+    <div class="step-page" id="page1">
+      <div class="q-number">Step 1 / 4</div>
+      <h2 class="q-title">거울을 볼 때 가장 돋보이는 체형 특징은?</h2>
+      <p class="q-sub">체형의 뼈대와 중심에 맞춰 옷의 핏을 잡아드립니다.</p>
+
+      <div class="option-list">
+        <div class="option-btn" onclick="selectAndNext('skeleton', '스트레이트', 2)">
+          <span><strong>스트레이트</strong> (상체 볼륨, 탄력감 있는 체형)</span>
+          <span>➔</span>
+        </div>
+        <div class="option-btn" onclick="selectAndNext('skeleton', '웨이브', 2)">
+          <span><strong>웨이브</strong> (가느다란 쇄골과 얇은 허리 라인)</span>
+          <span>➔</span>
+        </div>
+        <div class="option-btn" onclick="selectAndNext('skeleton', '내추럴', 2)">
+          <span><strong>내추럴</strong> (어깨 골격과 프레임이 멋진 체형)</span>
+          <span>➔</span>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="btn-prev" onclick="goToPage(0)">이전</button>
+      </div>
+    </div>
+
+    <!-- PAGE 2: 퍼스널 컬러 진단 -->
+    <div class="step-page" id="page2">
+      <div class="q-number">Step 2 / 4</div>
+      <h2 class="q-title">얼굴을 더 환하게 비춰주는 톤은?</h2>
+      <p class="q-sub">주변에서 칭찬을 많이 듣는 컬러 계열을 골라주세요.</p>
+
+      <div class="option-list">
+        <div class="option-btn" onclick="selectAndNext('color', '봄 웜톤 (Spring Warm)', 3)">
+          <span>☀️ 화사하고 생기 있는 코랄 / 아이보리</span>
+          <span>➔</span>
+        </div>
+        <div class="option-btn" onclick="selectAndNext('color', '여름 쿨톤 (Summer Cool)', 3)">
+          <span>🌸 맑고 청량한 라벤더 / 소프트 파스텔</span>
+          <span>➔</span>
+        </div>
+        <div class="option-btn" onclick="selectAndNext('color', '가을 웜톤 (Autumn Warm)', 3)">
+          <span>🍂 그윽하고 깊이 있는 브라운 / 카키 / 카멜</span>
+          <span>➔</span>
+        </div>
+        <div class="option-btn" onclick="selectAndNext('color', '겨울 쿨톤 (Winter Cool)', 3)">
+          <span>❄️ 선명하고 시크한 퓨어 화이트 / 블랙 / 네이비</span>
+          <span>➔</span>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="btn-prev" onclick="goToPage(1)">이전</button>
+      </div>
+    </div>
+
+    <!-- PAGE 3: MBTI 선택 -->
+    <div class="step-page" id="page3">
+      <div class="q-number">Step 3 / 4</div>
+      <h2 class="q-title">당신의 MBTI는 무엇인가요?</h2>
+      <p class="q-sub">성향에 따라 가장 편안함을 느끼는 실루엣을 매칭해 드립니다.</p>
+
+      <select class="input-field" id="mbtiSelect" style="font-weight:700;">
+        <option value="INFP">INFP</option><option value="ENFP">ENFP</option>
+        <option value="INFJ">INFJ</option><option value="ENFJ">ENFJ</option>
+        <option value="INTJ">INTJ</option><option value="ENTJ">ENTJ</option>
+        <option value="INTP">INTP</option><option value="ENTP">ENTP</option>
+        <option value="ISFP">ISFP</option><option value="ESFP">ESFP</option>
+        <option value="ISTP">ISTP</option><option value="ESTP">ESTP</option>
+        <option value="ISTJ">ISTJ</option><option value="ESTJ">ESTJ</option>
+        <option value="ISFJ">ISFJ</option><option value="ESFJ">ESFJ</option>
+      </select>
+      
+      <div class="bottom-nav">
+        <button class="btn-prev" onclick="goToPage(2)">이전</button>
+        <button class="btn-next" onclick="goToPage(4)">다음 ➔</button>
+      </div>
+    </div>
+
+    <!-- PAGE 4: 고객 정보 입력 -->
+    <div class="step-page" id="page4">
+      <div class="q-number">Step 4 / 4</div>
+      <h2 class="q-title">리포트를 받으실 정보를 입력해주세요</h2>
+      <p class="q-sub">전문 스타일리스트의 맞춤 가이드가 문자로 전송됩니다.</p>
+
+      <input type="text" id="custName" class="input-field" placeholder="이름 또는 닉네임">
+      <input type="tel" id="custPhone" class="input-field" placeholder="휴대폰 번호 (010-0000-0000)">
+
+      <div class="bottom-nav">
+        <button class="btn-prev" onclick="goToPage(3)">이전</button>
+        <button class="btn-next" onclick="submitSurvey()">결과 보기 & 신청 완료 ➔</button>
+      </div>
+    </div>
+
+    <!-- PAGE 5: 결과 및 완료 페이지 -->
+    <div class="step-page" id="page5">
+      <div style="text-align: center; margin: auto 0;">
+        <div class="result-stone">🪨</div>
+        <h2 class="q-title" id="finalResultTitle">진단이 완료되었습니다</h2>
+        <p class="q-sub" id="finalResultSub">입력하신 정보로 최적의 스타일 리포트가 완성되었습니다.</p>
+
+        <div class="coupon-card">
+          <p style="font-size:0.85rem; color:#666; margin-bottom:4px;">연말 한정 VIP 15% 쿠폰 코드</p>
+          <strong style="font-size:1.2rem; color:#4A6B82; letter-spacing:1px;">PEBBLOUS2024</strong>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="/" class="btn-next" style="text-align:center; text-decoration:none;">메인 화면으로 돌아가기</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentData = { skeleton: '', color: '', mbti: '', name: '', phone: '' };
+
+    function goToPage(pageNum) {
+      document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page' + pageNum).classList.add('active');
+      
+      const bar = document.getElementById('progressBar');
+      const percents = [0, 25, 50, 75, 90, 100];
+      bar.style.width = percents[pageNum] + '%';
+    }
+
+    function selectAndNext(key, val, nextNum) {
+      currentData[key] = val;
+      goToPage(nextNum);
+    }
+
+    async function submitSurvey() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const mbti = document.getElementById('mbtiSelect').value;
+
+      if (!name || !phone) {
+        alert('이름과 휴대폰 번호를 모두 입력해주세요!');
+        return;
+      }
+
+      currentData.name = name;
+      currentData.phone = phone;
+      currentData.mbti = mbti;
+
+      try {
+        const response = await fetch('/api/diagnosis', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentData)
+        });
+
+        const resJson = await response.json();
+        if (resJson.success) {
+          document.getElementById('finalResultTitle').innerText = `${name}님의 [${mbti} × ${currentData.skeleton}] 조약돌`;
+          document.getElementById('finalResultSub').innerHTML = `
+            <strong>${currentData.color}</strong> 톤과 <strong>${currentData.skeleton}</strong> 체형을 살린 ${mbti} 스타일북이 등록하신 번호로 발송됩니다.
+          `;
+          goToPage(5);
+        } else {
+          alert('신청 실패: ' + resJson.message);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('신청 전송 중 오류가 발생했습니다.');
+      }
+    }
+  </script>
+</body>
+</html>
