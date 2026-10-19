@@ -3,61 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>pebblous 연말 스페셜 진단</title>
+  <title>pebblous 스타일 진단 테스트</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: Pretendard, -apple-system, sans-serif; }
     body { background: #ECEAE4; color: #1e1e20; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
-    /* Smore-like Mobile Card Container */
     .smore-app {
-      width: 100%; max-width: 440px; min-height: 90vh; background: #FAF9F6;
+      width: 100%; max-width: 440px; min-height: 88vh; background: #FAF9F6;
       border-radius: 28px; box-shadow: 0 15px 40px rgba(0,0,0,0.08);
       position: relative; overflow: hidden; display: flex; flex-direction: column;
     }
 
-    /* Top Progress Bar */
     .progress-bar-container { width: 100%; height: 5px; background: #e3e1da; }
     .progress-bar { height: 100%; width: 0%; background: #4A6B82; transition: width 0.3s ease; }
 
     .header-bar {
       padding: 16px 22px; display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.85rem; font-weight: 700; color: #666;
+      border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.9rem; font-weight: 800; color: #4A6B82; letter-spacing: -0.02em;
     }
-    .header-bar a { text-decoration: none; color: #999; }
+    .header-bar a { text-decoration: none; color: #999; font-size: 0.85rem; font-weight: 500; }
 
-    /* Step Page */
     .step-page { display: none; padding: 32px 24px; flex: 1; flex-direction: column; animation: slideUp 0.3s ease; }
     .step-page.active { display: flex; }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .q-number { font-size: 0.85rem; font-weight: 800; color: #4A6B82; margin-bottom: 8px; text-transform: uppercase; }
-    .q-title { font-size: 1.45rem; font-weight: 800; line-height: 1.35; margin-bottom: 10px; letter-spacing: -0.02em; }
+    .q-number { font-size: 0.85rem; font-weight: 800; color: #4A6B82; margin-bottom: 8px; }
+    .q-title { font-size: 1.4rem; font-weight: 800; line-height: 1.35; margin-bottom: 10px; letter-spacing: -0.02em; }
     .q-sub { font-size: 0.92rem; color: #777; margin-bottom: 28px; }
 
-    /* Options */
     .option-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: auto; }
     .option-btn {
       background: #fff; border: 1.5px solid #E6E4DD; border-radius: 18px;
       padding: 18px 20px; text-align: left; font-size: 0.98rem; font-weight: 600;
-      color: #333; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between;
+      color: #333; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between; line-height: 1.4;
     }
     .option-btn:hover { border-color: #4A6B82; background: #F3F6F8; }
-    .option-btn.selected { border-color: #4A6B82; background: #EBF1F5; color: #4A6B82; font-weight: 700; }
 
-    /* Inputs */
     .input-field {
       width: 100%; padding: 16px 18px; border: 1.5px solid #E0DED7;
       border-radius: 16px; font-size: 1rem; margin-bottom: 16px; outline: none; background: #fff;
     }
     .input-field:focus { border-color: #4A6B82; }
 
-    /* Bottom Nav Buttons */
     .bottom-nav { margin-top: 24px; display: flex; gap: 10px; }
     .btn-next {
       flex: 1; background: #222225; color: #fff; padding: 18px;
@@ -69,14 +62,17 @@
       border-radius: 18px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer;
     }
 
-    /* Intro & Result */
     .intro-badge { display: inline-block; padding: 5px 12px; background: #D94848; color: #fff; border-radius: 999px; font-size: 0.75rem; font-weight: 700; margin-bottom: 14px; }
     .result-stone {
-      width: 90px; height: 75px; background: linear-gradient(135deg, #4A6B82, #293d4a);
-      border-radius: 35px 20px 30px 25px / 25px 35px 25px 30px; margin: 20px auto;
+      width: 85px; height: 70px; background: linear-gradient(135deg, #4A6B82, #293d4a);
+      border-radius: 35px 20px 30px 25px / 25px 35px 25px 30px; margin: 15px auto;
       display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff;
     }
-    .coupon-card { background: #EFECE6; border-radius: 18px; padding: 18px; text-align: left; margin: 20px 0; }
+    .result-card-box {
+      background: #fff; border: 1.5px solid #E6E4DD; border-radius: 20px;
+      padding: 20px; text-align: left; margin: 15px 0;
+    }
+    .result-card-box h3 { font-size: 1.25rem; color: #4A6B82; margin-bottom: 6px; }
   </style>
 </head>
 <body>
@@ -87,189 +83,338 @@
     </div>
     
     <div class="header-bar">
-      <span>pebblous 2024</span>
+      <span>pebblous</span>
       <a href="/">홈으로 ✕</a>
     </div>
 
-    <!-- PAGE 0: INTRO -->
+    <!-- 0. INTRO -->
     <div class="step-page active" id="page0">
       <div>
-        <span class="intro-badge">연말 한정 무료 혜택</span>
+        <span class="intro-badge">연말 한정 특별 프로모션</span>
         <h1 class="q-title">나만의 조약돌을 찾는<br>퍼스널 3종 스타일 진단</h1>
-        <p class="q-sub">골격 체형 진단 + 퍼스널 컬러 + MBTI 맞춤 1:1 스타일링 솔루션을 무료로 받아보세요.</p>
-        <div style="background:#fff; border-radius:18px; padding:18px; margin-bottom:20px; border:1px solid #e7e5de; font-size:0.9rem; color:#555;">
-          ⏱ <strong>소요 시간:</strong> 약 1분<br>
-          🎁 <strong>참여 혜택:</strong> 1:1 맞춤 PDF 리포트 + 15% VIP 할인 쿠폰
+        <p class="q-sub">체형 골격 + 퍼스널 컬러 + MBTI 패션 성향을 분석해 세상에 단 하나뿐인 나의 스타일을 찾아드립니다.</p>
+        <div style="background:#fff; border-radius:18px; padding:20px; margin-bottom:20px; border:1px solid #e7e5de; font-size:0.95rem; color:#444; line-height: 1.8;">
+          ⏱ <strong>소요 시간:</strong> 약 2분<br>
+          🎁 <strong>참여 혜택: 1:1 맞춤 무료권</strong>
         </div>
       </div>
       <div class="bottom-nav">
-        <button class="btn-next" onclick="goToPage(1)">진단 시작하기 ➔</button>
+        <button class="btn-next" onclick="goToStep(1)">진단 시작하기 ➔</button>
       </div>
     </div>
 
-    <!-- PAGE 1: 골격 진단 -->
+    <!-- 1. 골격 진단 -->
     <div class="step-page" id="page1">
-      <div class="q-number">Step 1 / 4</div>
-      <h2 class="q-title">거울을 볼 때 가장 돋보이는 체형 특징은?</h2>
-      <p class="q-sub">체형의 뼈대와 중심에 맞춰 옷의 핏을 잡아드립니다.</p>
-
+      <div class="q-number">체형 진단</div>
+      <h2 class="q-title">거울을 볼 때 가장 두드러지는 체형 특징은?</h2>
+      <p class="q-sub">체형의 뼈대와 볼륨 위치에 꼭 맞는 핏을 제안해 드립니다.</p>
       <div class="option-list">
-        <div class="option-btn" onclick="selectAndNext('skeleton', '스트레이트', 2)">
-          <span><strong>스트레이트</strong> (상체 볼륨, 탄력감 있는 체형)</span>
-          <span>➔</span>
+        <div class="option-btn" onclick="saveAnswer('skeleton', '스트레이트', 2)">
+          <span><strong>스트레이트</strong> (상체 볼륨감, 탄력 있는 피부결)</span><span>➔</span>
         </div>
-        <div class="option-btn" onclick="selectAndNext('skeleton', '웨이브', 2)">
-          <span><strong>웨이브</strong> (가느다란 쇄골과 얇은 허리 라인)</span>
-          <span>➔</span>
+        <div class="option-btn" onclick="saveAnswer('skeleton', '웨이브', 2)">
+          <span><strong>웨이브</strong> (가느다란 쇄골과 얇고 긴 허리선)</span><span>➔</span>
         </div>
-        <div class="option-btn" onclick="selectAndNext('skeleton', '내추럴', 2)">
-          <span><strong>내추럴</strong> (어깨 골격과 프레임이 멋진 체형)</span>
-          <span>➔</span>
+        <div class="option-btn" onclick="saveAnswer('skeleton', '내추럴', 2)">
+          <span><strong>내추럴</strong> (관절과 골격 프레임이 멋진 체형)</span><span>➔</span>
         </div>
       </div>
-      <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToPage(0)">이전</button>
-      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(0)">이전</button></div>
     </div>
 
-    <!-- PAGE 2: 퍼스널 컬러 진단 -->
+    <!-- 2. 퍼스널 컬러 진단 -->
     <div class="step-page" id="page2">
-      <div class="q-number">Step 2 / 4</div>
-      <h2 class="q-title">얼굴을 더 환하게 비춰주는 톤은?</h2>
-      <p class="q-sub">주변에서 칭찬을 많이 듣는 컬러 계열을 골라주세요.</p>
-
+      <div class="q-number">컬러 진단</div>
+      <h2 class="q-title">얼굴을 가장 화사하게 밝혀주는 톤은?</h2>
+      <p class="q-sub">평소 주변에서 가장 잘 어울린다고 칭찬받는 색감을 골라주세요.</p>
       <div class="option-list">
-        <div class="option-btn" onclick="selectAndNext('color', '봄 웜톤 (Spring Warm)', 3)">
-          <span>☀️ 화사하고 생기 있는 코랄 / 아이보리</span>
-          <span>➔</span>
+        <div class="option-btn" onclick="saveAnswer('color', '봄 웜톤', 3)">
+          <span>☀️ 화사하고 생기 있는 코랄 / 아이보리</span><span>➔</span>
         </div>
-        <div class="option-btn" onclick="selectAndNext('color', '여름 쿨톤 (Summer Cool)', 3)">
-          <span>🌸 맑고 청량한 라벤더 / 소프트 파스텔</span>
-          <span>➔</span>
+        <div class="option-btn" onclick="saveAnswer('color', '여름 쿨톤', 3)">
+          <span>🌸 맑고 청량한 라벤더 / 소프트 파스텔</span><span>➔</span>
         </div>
-        <div class="option-btn" onclick="selectAndNext('color', '가을 웜톤 (Autumn Warm)', 3)">
-          <span>🍂 그윽하고 깊이 있는 브라운 / 카키 / 카멜</span>
-          <span>➔</span>
+        <div class="option-btn" onclick="saveAnswer('color', '가을 웜톤', 3)">
+          <span>🍂 깊이 있고 차분한 카멜 / 브라운 / 카키</span><span>➔</span>
         </div>
-        <div class="option-btn" onclick="selectAndNext('color', '겨울 쿨톤 (Winter Cool)', 3)">
-          <span>❄️ 선명하고 시크한 퓨어 화이트 / 블랙 / 네이비</span>
-          <span>➔</span>
+        <div class="option-btn" onclick="saveAnswer('color', '겨울 쿨톤', 3)">
+          <span>❄️ 선명하고 시크한 퓨어 화이트 / 블랙 / 네이비</span><span>➔</span>
         </div>
       </div>
-      <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToPage(1)">이전</button>
-      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(1)">이전</button></div>
     </div>
 
-    <!-- PAGE 3: MBTI 선택 -->
+    <!-- MBTI 12문항 (한 화면에 한 문항씩) -->
+    <!-- Q1 (E/I 1) -->
     <div class="step-page" id="page3">
-      <div class="q-number">Step 3 / 4</div>
-      <h2 class="q-title">당신의 MBTI는 무엇인가요?</h2>
-      <p class="q-sub">성향에 따라 가장 편안함을 느끼는 실루엣을 매칭해 드립니다.</p>
-
-      <select class="input-field" id="mbtiSelect" style="font-weight:700;">
-        <option value="INFP">INFP</option><option value="ENFP">ENFP</option>
-        <option value="INFJ">INFJ</option><option value="ENFJ">ENFJ</option>
-        <option value="INTJ">INTJ</option><option value="ENTJ">ENTJ</option>
-        <option value="INTP">INTP</option><option value="ENTP">ENTP</option>
-        <option value="ISFP">ISFP</option><option value="ESFP">ESFP</option>
-        <option value="ISTP">ISTP</option><option value="ESTP">ESTP</option>
-        <option value="ISTJ">ISTJ</option><option value="ESTJ">ESTJ</option>
-        <option value="ISFJ">ISFJ</option><option value="ESFJ">ESFJ</option>
-      </select>
-      
-      <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToPage(2)">이전</button>
-        <button class="btn-next" onclick="goToPage(4)">다음 ➔</button>
+      <div class="q-number">성향 테스트 1 / 12</div>
+      <h2 class="q-title">옷을 고를 때 더 끌리는 것은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('EI', 'E', 4)"><span>사람들 사이에서 눈에 띄는 포인트가 있는 옷</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('EI', 'I', 4)"><span>나만 편하고 만족스러우면 되는 옷</span><span>➔</span></div>
       </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(2)">이전</button></div>
     </div>
 
-    <!-- PAGE 4: 고객 정보 입력 -->
+    <!-- Q2 (E/I 2) -->
     <div class="step-page" id="page4">
-      <div class="q-number">Step 4 / 4</div>
-      <h2 class="q-title">리포트를 받으실 정보를 입력해주세요</h2>
-      <p class="q-sub">전문 스타일리스트의 맞춤 가이드가 문자로 전송됩니다.</p>
+      <div class="q-number">성향 테스트 2 / 12</div>
+      <h2 class="q-title">새 옷을 샀다면 나의 행동은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('EI', 'E', 5)"><span>바로 입고 친구들에게 보여준다</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('EI', 'I', 5)"><span>혼자 거울 보며 조용히 코디해본다</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(3)">이전</button></div>
+    </div>
 
-      <input type="text" id="custName" class="input-field" placeholder="이름 또는 닉네임">
+    <!-- Q3 (E/I 3) -->
+    <div class="step-page" id="page5">
+      <div class="q-number">성향 테스트 3 / 12</div>
+      <h2 class="q-title">내가 선호하는 쇼핑 스타일은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('EI', 'E', 6)"><span>친구랑 같이 가서 의견을 주고받으며 쇼핑</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('EI', 'I', 6)"><span>혼자 천천히 둘러보며 여유롭게 쇼핑</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(4)">이전</button></div>
+    </div>
+
+    <!-- Q4 (S/N 1) -->
+    <div class="step-page" id="page6">
+      <div class="q-number">성향 테스트 4 / 12</div>
+      <h2 class="q-title">옷을 고를 때 더 중요한 기준은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('SN', 'S', 7)"><span>소재, 핏, 실용성 같은 현실적인 요소</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('SN', 'N', 7)"><span>분위기, 무드, 콘셉트 같은 전체적인 느낌</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(5)">이전</button></div>
+    </div>
+
+    <!-- Q5 (S/N 2) -->
+    <div class="step-page" id="page7">
+      <div class="q-number">성향 테스트 5 / 12</div>
+      <h2 class="q-title">나의 평소 코디 방식은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('SN', 'S', 8)"><span>검증된 조합을 안정적으로 반복해서 입는 편</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('SN', 'N', 8)"><span>안 해본 새로운 조합을 시도해보는 편</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(6)">이전</button></div>
+    </div>
+
+    <!-- Q6 (S/N 3) -->
+    <div class="step-page" id="page8">
+      <div class="q-number">성향 테스트 6 / 12</div>
+      <h2 class="q-title">스타일 영감을 주로 얻는 곳은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('SN', 'S', 9)"><span>매장 마네킹, 지금 유행하는 인기 아이템</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('SN', 'N', 9)"><span>영화, 전시회, 상상 속 이미지</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(7)">이전</button></div>
+    </div>
+
+    <!-- Q7 (T/F 1) -->
+    <div class="step-page" id="page9">
+      <div class="q-number">성향 테스트 7 / 12</div>
+      <h2 class="q-title">옷을 구매할 때 최종 판단은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('TF', 'T', 10)"><span>가성비, 활용도 등 논리적으로 납득되는 소비</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('TF', 'F', 10)"><span>보자마자 마음을 흔드는 감성적인 끌림</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(8)">이전</button></div>
+    </div>
+
+    <!-- Q8 (T/F 2) -->
+    <div class="step-page" id="page10">
+      <div class="q-number">성향 테스트 8 / 12</div>
+      <h2 class="q-title">친구가 안 어울리는 옷을 입었다면?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('TF', 'T', 11)"><span>솔직하게 피드백을 말해준다</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('TF', 'F', 11)"><span>기분 상하지 않게 돌려 말하거나 칭찬을 찾는다</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(9)">이전</button></div>
+    </div>
+
+    <!-- Q9 (T/F 3) -->
+    <div class="step-page" id="page11">
+      <div class="q-number">성향 테스트 9 / 12</div>
+      <h2 class="q-title">패션을 통해 보여주고 싶은 이미지는?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('TF', 'T', 12)"><span>세련되고 프로페셔널해 보이는 스마트한 사람</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('TF', 'F', 12)"><span>따뜻하고 친근하며 편안해 보이는 사람</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(10)">이전</button></div>
+    </div>
+
+    <!-- Q10 (J/P 1) -->
+    <div class="step-page" id="page12">
+      <div class="q-number">성향 테스트 10 / 12</div>
+      <h2 class="q-title">평소 외출복을 입는 방식은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('JP', 'J', 13)"><span>전날 밤에 미리 코디를 완벽하게 정해둔다</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('JP', 'P', 13)"><span>당일 아침 날씨와 기분에 따라 즉흥적으로 고른다</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(11)">이전</button></div>
+    </div>
+
+    <!-- Q11 (J/P 2) -->
+    <div class="step-page" id="page13">
+      <div class="q-number">성향 테스트 11 / 12</div>
+      <h2 class="q-title">현재 내 옷장 상태에 가까운 것은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('JP', 'J', 14)"><span>계절과 종류, 컬러별로 반듯하게 정리돼 있다</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('JP', 'P', 14)"><span>자주 입는 순서나 손 가는 대로 걸려 있다</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(12)">이전</button></div>
+    </div>
+
+    <!-- Q12 (J/P 3) -->
+    <div class="step-page" id="page14">
+      <div class="q-number">성향 테스트 12 / 12</div>
+      <h2 class="q-title">쇼핑을 할 때 나의 패턴은?</h2>
+      <div class="option-list">
+        <div class="option-btn" onclick="voteMBTI('JP', 'J', 15)"><span>필요한 아이템을 리스트로 적어두고 사러 간다</span><span>➔</span></div>
+        <div class="option-btn" onclick="voteMBTI('JP', 'P', 15)"><span>자유롭게 구경하다가 마음에 꽂히면 산다</span><span>➔</span></div>
+      </div>
+      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(13)">이전</button></div>
+    </div>
+
+    <!-- 15. 고객 정보 입력 -->
+    <div class="step-page" id="page15">
+      <div class="q-number">마지막 단계</div>
+      <h2 class="q-title">진단 결과와 맞춤 무료권을 받으실 연락처를 입력해주세요</h2>
+      <p class="q-sub">전문 스타일리스트가 배정되어 1:1 맞춤 무료 솔루션을 제공해 드립니다.</p>
+
+      <input type="text" id="custName" class="input-field" placeholder="성함 또는 닉네임">
       <input type="tel" id="custPhone" class="input-field" placeholder="휴대폰 번호 (010-0000-0000)">
 
       <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToPage(3)">이전</button>
-        <button class="btn-next" onclick="submitSurvey()">결과 보기 & 신청 완료 ➔</button>
+        <button class="btn-prev" onclick="goToStep(14)">이전</button>
+        <button class="btn-next" onclick="submitSurvey()">내 스타일 결과 확인하기 ➔</button>
       </div>
     </div>
 
-    <!-- PAGE 5: 결과 및 완료 페이지 -->
-    <div class="step-page" id="page5">
+    <!-- 16. 최종 결과 페이지 -->
+    <div class="step-page" id="page16">
       <div style="text-align: center; margin: auto 0;">
         <div class="result-stone">🪨</div>
-        <h2 class="q-title" id="finalResultTitle">진단이 완료되었습니다</h2>
-        <p class="q-sub" id="finalResultSub">입력하신 정보로 최적의 스타일 리포트가 완성되었습니다.</p>
+        <span style="font-weight: 800; color:#4A6B82; font-size: 0.95rem;" id="resMbtiBadge">INFJ</span>
+        <h2 class="q-title" style="margin-top:4px;" id="resTitle">미니멀 감성 룩</h2>
+        
+        <div class="result-card-box">
+          <p style="font-size:0.9rem; color:#666; margin-bottom:8px;" id="resSummary">내추럴 체형 × 겨울 쿨톤</p>
+          <p style="font-size:0.95rem; line-height:1.6; color:#333;" id="resDesc">
+            차분하고 정제된 실루엣과 감성적인 톤의 조화가 가장 돋보이는 스타일입니다.
+          </p>
+        </div>
 
-        <div class="coupon-card">
-          <p style="font-size:0.85rem; color:#666; margin-bottom:4px;">연말 한정 VIP 15% 쿠폰 코드</p>
-          <strong style="font-size:1.2rem; color:#4A6B82; letter-spacing:1px;">PEBBLOUS2024</strong>
+        <div style="background:#EFECE6; border-radius:18px; padding:16px; font-size:0.9rem; color:#444; margin-bottom:15px; text-align:left;">
+          🎁 <strong>참여 혜택: 1:1 맞춤 무료권이 발급되었습니다!</strong><br>
+          <span style="font-size:0.82rem; color:#777;">(기재하신 번호로 전담 스타일리스트 안내 문자가 발송됩니다)</span>
         </div>
       </div>
 
       <div class="bottom-nav">
-        <a href="/" class="btn-next" style="text-align:center; text-decoration:none;">메인 화면으로 돌아가기</a>
+        <a href="/" class="btn-next" style="text-align:center; text-decoration:none;">홈페이지로 이동</a>
       </div>
     </div>
 
   </div>
 
   <script>
-    let currentData = { skeleton: '', color: '', mbti: '', name: '', phone: '' };
+    // 16가지 MBTI별 스타일 매핑 사전
+    const mbtiStyleMap = {
+      'INFJ': { title: '미니멀 감성 룩', desc: '정갈하고 차분한 뉴트럴 톤의 롱코트와 미니멀한 실루엣이 내면의 깊은 분위기를 가장 아름답게 살려줍니다.' },
+      'INFP': { title: '빈티지 코지 룩', desc: '포근한 질감의 니트와 아늑한 롱스커트 등 나만의 낭만과 온기를 담아내는 자연스러운 스타일이 어울립니다.' },
+      'INTJ': { title: '테일러드 올블랙 룩', desc: '군더더기 없는 절제된 직선 셋업과 시크한 모노톤 조합으로 지적이고 샤프한 무드를 완성합니다.' },
+      'INTP': { title: '오버핏 릴렉스 룩', desc: '틀에 얽매이지 않는 편안한 루즈핏 셔츠와 와이드 치노 팬츠로 지적인 자유로움을 표현합니다.' },
+      'ENFJ': { title: '소프트 클래식 룩', desc: '단정하면서도 온화한 느낌을 주는 셔츠 & 슬랙스 조합으로 신뢰감과 따뜻함을 동시에 전합니다.' },
+      'ENFP': { title: '유니크 컬러 포인트 룩', desc: '톡톡 튀는 비비드 컬러 악세서리와 자유로운 스트리트 감성을 믹스매치하여 넘치는 에너지를 표현합니다.' },
+      'ENTJ': { title: '모던 파워 드레싱', desc: '각 잡힌 숄더 블레이저와 구조적인 실루엣으로 존재감과 카리스마를 극대화하는 세련된 룩입니다.' },
+      'ENTP': { title: '아방가르드 캐주얼', desc: '비대칭 컷팅과 위트 있는 레이어드 믹스매치로 남들과 다른 독창적인 감각을 뽐냅니다.' },
+      'ISFJ': { title: '단아한 프레피 룩', desc: '단정한 짜임의 가디건과 플리츠 스커트, 깔끔한 로퍼로 정갈하고 다정한 매력을 선보입니다.' },
+      'ISFP': { title: '코지 내추럴 룩', desc: '자연스러운 천연 소재와 편안한 핏으로 힘을 뺀 듯 감각적인 분위기를 연출합니다.' },
+      'ISTJ': { title: '타임리스 클래식 룩', desc: '유행을 타지 않는 정통 트렌치코트와 옥스퍼드 셔츠로 단단하고 신뢰감 있는 기본을 보여줍니다.' },
+      'ISTP': { title: '고프코어 워크웨어', desc: '군더더기 없는 실용적인 유틸리티 재킷과 카고 팬츠로 쿨하고 활동적인 매력을 살립니다.' },
+      'ESFJ': { title: '러블리 세미캐주얼', desc: '화사하고 부드러운 파스텔 톤 니트와 단정한 팬츠로 누구에게나 호감을 주는 조화로운 스타일입니다.' },
+      'ESFP': { title: '트렌디 페스티벌 룩', desc: '크롭 아우터와 시선을 사로잡는 볼드한 포인트 아이템으로 경쾌하고 즐거운 에너지를 드러냅니다.' },
+      'ESTJ': { title: '스마트 비즈니스 룩', desc: '정교하게 재단된 슬랙스와 깔끔한 셔츠로 스마트하고 빈틈없는 프로페셔널 이미지를 완성합니다.' },
+      'ESTP': { title: '스포티 레더 룩', desc: '활동성을 겸비한 바이커 레더 재킷과 스포티한 디테일로 당당하고 거침없는 매력을 뽐냅니다.' }
+    };
 
-    function goToPage(pageNum) {
+    let surveyData = {
+      skeleton: '',
+      color: '',
+      scores: { EI: { E: 0, I: 0 }, SN: { S: 0, N: 0 }, TF: { T: 0, F: 0 }, JP: { J: 0, P: 0 } },
+      finalMBTI: ''
+    };
+
+    function goToStep(stepIndex) {
       document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + pageNum).classList.add('active');
-      
-      const bar = document.getElementById('progressBar');
-      const percents = [0, 25, 50, 75, 90, 100];
-      bar.style.width = percents[pageNum] + '%';
+      const target = document.getElementById('page' + stepIndex);
+      if (target) target.classList.add('active');
+
+      const totalSteps = 16;
+      const percent = Math.min(100, Math.round((stepIndex / totalSteps) * 100));
+      document.getElementById('progressBar').style.width = percent + '%';
     }
 
-    function selectAndNext(key, val, nextNum) {
-      currentData[key] = val;
-      goToPage(nextNum);
+    function saveAnswer(key, val, nextStep) {
+      surveyData[key] = val;
+      goToStep(nextStep);
+    }
+
+    function voteMBTI(axis, choice, nextStep) {
+      surveyData.scores[axis][choice]++;
+      goToStep(nextStep);
+    }
+
+    function calculateMBTI() {
+      const s = surveyData.scores;
+      const e_i = s.EI.E >= 2 ? 'E' : 'I';
+      const s_n = s.SN.S >= 2 ? 'S' : 'N';
+      const t_f = s.TF.T >= 2 ? 'T' : 'F';
+      const j_p = s.JP.J >= 2 ? 'J' : 'P';
+      return `${e_i}${s_n}${t_f}${j_p}`;
     }
 
     async function submitSurvey() {
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
-      const mbti = document.getElementById('mbtiSelect').value;
 
       if (!name || !phone) {
-        alert('이름과 휴대폰 번호를 모두 입력해주세요!');
+        alert('성함과 휴대폰 번호를 모두 입력해주세요!');
         return;
       }
 
-      currentData.name = name;
-      currentData.phone = phone;
-      currentData.mbti = mbti;
+      surveyData.finalMBTI = calculateMBTI();
+      const payload = {
+        name: name,
+        phone: phone,
+        mbti: surveyData.finalMBTI,
+        skeleton: surveyData.skeleton,
+        color: surveyData.color
+      };
 
       try {
-        const response = await fetch('/api/diagnosis', {
+        const res = await fetch('/api/diagnosis', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(currentData)
+          body: JSON.stringify(payload)
         });
-
-        const resJson = await response.json();
-        if (resJson.success) {
-          document.getElementById('finalResultTitle').innerText = `${name}님의 [${mbti} × ${currentData.skeleton}] 조약돌`;
-          document.getElementById('finalResultSub').innerHTML = `
-            <strong>${currentData.color}</strong> 톤과 <strong>${currentData.skeleton}</strong> 체형을 살린 ${mbti} 스타일북이 등록하신 번호로 발송됩니다.
-          `;
-          goToPage(5);
+        const json = await res.json();
+        
+        if (json.success) {
+          const styleInfo = mbtiStyleMap[surveyData.finalMBTI] || { title: '맞춤 시그니처 룩', desc: '당신의 성향에 꼭 맞춘 스타일 가이드가 준비되었습니다.' };
+          document.getElementById('resMbtiBadge').innerText = surveyData.finalMBTI;
+          document.getElementById('resTitle').innerText = styleInfo.title;
+          document.getElementById('resSummary').innerText = `${surveyData.skeleton} 체형 × ${surveyData.color}`;
+          document.getElementById('resDesc').innerText = styleInfo.desc;
+          goToStep(16);
         } else {
-          alert('신청 실패: ' + resJson.message);
+          alert('신청 실패: ' + json.message);
         }
-      } catch (err) {
-        console.error(err);
-        alert('신청 전송 중 오류가 발생했습니다.');
+      } catch (e) {
+        console.error(e);
+        alert('서버 연결 중 문제가 발생했습니다.');
       }
     }
   </script>
