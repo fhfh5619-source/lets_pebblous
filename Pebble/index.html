@@ -5,91 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pebblous | Different Shapes of Pebbles</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  
   <style>
     :root {
-      --bg-stone: #F5F4F0;
-      --bg-card: #FAF9F6;
-      --text-main: #1D1D1F;
-      --text-muted: #7A7A80;
-      --pebble-blue: #4A6B82;
-      --pebble-dark: #222225;
-      --border-soft: rgba(0, 0, 0, 0.07);
-      --radius-pebble: 35px 20px 30px 25px / 25px 35px 25px 30px;
+      --bg-stone: #F5F4F0; --bg-card: #FAF9F6; --text-main: #1D1D1F;
+      --text-muted: #7A7A80; --pebble-blue: #4A6B82; --pebble-dark: #222225;
+      --border-soft: rgba(0, 0, 0, 0.07); --radius-pebble: 35px 20px 30px 25px / 25px 35px 25px 30px;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Pretendard, -apple-system, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Pretendard, sans-serif; }
     body { background: var(--bg-stone); color: var(--text-main); line-height: 1.6; word-break: keep-all; }
     a { text-decoration: none; color: inherit; }
-
     .container { width: 90%; max-width: 1000px; margin: 0 auto; }
-
-    header {
-      position: sticky; top: 0; background: rgba(245, 244, 240, 0.9);
-      backdrop-filter: blur(10px); z-index: 100; padding: 18px 0; border-bottom: 1px solid var(--border-soft);
-    }
+    header { position: sticky; top: 0; background: rgba(245, 244, 240, 0.9); backdrop-filter: blur(10px); z-index: 100; padding: 18px 0; border-bottom: 1px solid var(--border-soft); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; }
     .brand-logo img { height: 36px; object-fit: contain; }
-
-    .nav-cta {
-      background: var(--pebble-dark); color: #fff; padding: 10px 22px;
-      border-radius: var(--radius-pebble); font-size: 0.9rem; font-weight: 600;
-      transition: all 0.25s;
-    }
-    .nav-cta:hover { background: var(--pebble-blue); }
-
-    /* Hero */
-    .hero { text-align: center; padding: 110px 0 80px; }
-    .badge {
-      display: inline-block; padding: 6px 16px; background: #E8E6DF;
-      border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: var(--pebble-blue);
-      letter-spacing: 0.05em; margin-bottom: 20px;
-    }
-    .hero h1 { font-size: clamp(2.3rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.25; margin-bottom: 20px; }
+    .nav-buttons { display: flex; gap: 10px; }
+    .btn-nav-test { background: #E8E6DF; color: #222; padding: 9px 18px; border-radius: var(--radius-pebble); font-size: 0.88rem; font-weight: 600; }
+    .btn-nav-event { background: var(--pebble-blue); color: #fff; padding: 9px 18px; border-radius: var(--radius-pebble); font-size: 0.88rem; font-weight: 600; }
+    
+    .hero { text-align: center; padding: 100px 0 70px; }
+    .badge { display: inline-block; padding: 6px 16px; background: #E8E6DF; border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: var(--pebble-blue); margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(2.3rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.25; margin-bottom: 20px; }
     .hero h1 span { color: var(--pebble-blue); }
     .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 36px; }
+    .hero-btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--pebble-dark); color: #fff; padding: 16px 32px; border-radius: var(--radius-pebble); font-size: 1.05rem; font-weight: 700; }
+    .btn-event { background: var(--pebble-blue); color: #fff; padding: 16px 32px; border-radius: var(--radius-pebble); font-size: 1.05rem; font-weight: 700; }
 
-    .btn-event {
-      display: inline-block; background: var(--pebble-blue); color: #fff;
-      padding: 18px 40px; border-radius: var(--radius-pebble); font-size: 1.1rem; font-weight: 700;
-      box-shadow: 0 10px 25px rgba(74, 107, 130, 0.3); transition: transform 0.2s;
-    }
-    .btn-event:hover { transform: translateY(-3px); }
-
-    /* Story Section */
-    .story-section {
-      background: #EFECE6; padding: 80px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft);
-      text-align: center;
-    }
+    .story-section { background: #EFECE6; padding: 80px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); text-align: center; }
     .story-box { max-width: 650px; margin: 0 auto; }
     .story-box h2 { font-size: 2.1rem; margin-bottom: 20px; font-weight: 800; }
-    .story-box p { color: #555; font-size: 1.05rem; line-height: 1.8; margin-bottom: 14px; }
+    .story-box p { color: #555; font-size: 1.05rem; line-height: 1.8; }
 
-    /* Guide Section */
-    .test-guide { padding: 90px 0; text-align: center; }
-    .guide-cards {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px; margin-top: 40px; text-align: left;
-    }
-    .guide-card {
-      background: var(--bg-card); border: 1px solid var(--border-soft);
-      padding: 30px 25px; border-radius: 24px;
-    }
-    .guide-num { font-size: 1.5rem; font-weight: 900; color: var(--pebble-blue); margin-bottom: 12px; }
-    .guide-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
-    .guide-card p { font-size: 0.95rem; color: #666; }
+    .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 90px 0; }
+    .split-card { background: #FAF9F6; border: 1px solid var(--border-soft); border-radius: 28px; padding: 40px 30px; text-align: center; }
+    .split-card h3 { font-size: 1.6rem; margin-bottom: 10px; }
+    .split-card p { color: #666; font-size: 0.95rem; margin-bottom: 25px; }
 
     footer { background: #1B1B1D; color: #8C8C92; text-align: center; padding: 45px 0; font-size: 0.85rem; }
+    @media(max-width: 768px) { .split-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
   <header>
     <div class="container nav-inner">
       <a href="/" class="brand-logo">
         <img src="input_file_0.png" alt="pebblous" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:1.4rem;\'>pebblous</span>'">
       </a>
-      <a href="/event" class="nav-cta">무료 스타일 진단받기 ➔</a>
+      <div class="nav-buttons">
+        <a href="/test" class="btn-nav-test">MBTI 테스트</a>
+        <a href="/event" class="btn-nav-event">1:1 맞춤 무료권</a>
+      </div>
     </div>
   </header>
 
@@ -98,7 +63,10 @@
       <span class="badge">DIFFERENT SHAPES OF PEBBLES</span>
       <h1>조약돌처럼 다채로운,<br><span>나만의 패션 스타일</span></h1>
       <p>세상에 똑같은 조약돌이 없듯, 유행에 나를 맞추지 말고 내 체형과 MBTI에 꼭 맞는 실루엣을 찾아보세요.</p>
-      <a href="/event" class="btn-event">나만의 스타일 진단 시작하기 ➔</a>
+      <div class="hero-btn-group">
+        <a href="/test" class="btn-primary">⚡ 패션 MBTI 테스트 (12문항)</a>
+        <a href="/event" class="btn-event">🎁 1:1 맞춤 무료권 이벤트 신청</a>
+      </div>
     </div>
   </section>
 
@@ -110,38 +78,22 @@
     </div>
   </section>
 
-  <section class="test-guide">
-    <div class="container">
-      <h2 style="font-size:2.2rem; font-weight:800;">3단계 맞춤 진단 프로세스</h2>
-      <p style="color:var(--text-muted); font-size:1.05rem; margin-top:8px;">약 2분의 간단한 테스트로 나만의 1:1 맞춤 무료권을 받아보세요.</p>
-
-      <div class="guide-cards">
-        <div class="guide-card">
-          <div class="guide-num">01</div>
-          <h3>체형 & 골격 진단</h3>
-          <p>스트레이트, 웨이브, 내추럴 중 내 뼈대와 실루엣에 어울리는 최적의 핏을 찾아냅니다.</p>
-        </div>
-        <div class="guide-card">
-          <div class="guide-num">02</div>
-          <h3>퍼스널 컬러 분석</h3>
-          <p>내 피부톤에 생기를 불어넣고 얼굴빛을 환하게 밝혀주는 계절별 컬러 팔레트를 매칭합니다.</p>
-        </div>
-        <div class="guide-card">
-          <div class="guide-num">03</div>
-          <h3>MBTI 성향 스타일링</h3>
-          <p>12가지 패션 취향 문항을 통해 내가 가장 편안하고 나답게 입을 수 있는 무드를 분석합니다.</p>
-        </div>
-      </div>
-
-      <div style="margin-top: 55px;">
-        <a href="/event" class="btn-event" style="background:#222225;">내 MBTI 스타일 테스트하기 ➔</a>
-      </div>
+  <div class="container split-grid">
+    <div class="split-card">
+      <div style="font-size: 2.2rem; margin-bottom:10px;">🧩</div>
+      <h3>내 패션 MBTI는?</h3>
+      <p>12문항의 가벼운 질문을 통해 내 성향이 가장 편안함을 느끼는 룩북을 찾아보세요.</p>
+      <a href="/test" class="btn-primary" style="display:inline-block; width:100%;">테스트 하러 가기 ➔</a>
     </div>
-  </section>
 
-  <footer>
-    <p>&copy; pebblous. All Rights Reserved. Different Shapes of Pebbles.</p>
-  </footer>
+    <div class="split-card">
+      <div style="font-size: 2.2rem; margin-bottom:10px;">🎁</div>
+      <h3>연말 한정 3대 진단</h3>
+      <p>골격 체형 분석과 퍼스널 컬러 진단을 받고 전담 스타일리스트의 1:1 무료권을 신청하세요.</p>
+      <a href="/event" class="btn-event" style="display:inline-block; width:100%;">이벤트 참여하기 ➔</a>
+    </div>
+  </div>
 
+  <footer><p>&copy; pebblous. All Rights Reserved. Different Shapes of Pebbles.</p></footer>
 </body>
 </html>
