@@ -22,7 +22,7 @@
     body { background: var(--bg-stone); color: var(--text-main); line-height: 1.6; word-break: keep-all; }
     a { text-decoration: none; color: inherit; }
 
-    .container { width: 90%; max-width: 1100px; margin: 0 auto; }
+    .container { width: 90%; max-width: 1000px; margin: 0 auto; }
 
     header {
       position: sticky; top: 0; background: rgba(245, 244, 240, 0.9);
@@ -39,61 +39,47 @@
     .nav-cta:hover { background: var(--pebble-blue); }
 
     /* Hero */
-    .hero { text-align: center; padding: 100px 0 70px; }
+    .hero { text-align: center; padding: 110px 0 80px; }
     .badge {
       display: inline-block; padding: 6px 16px; background: #E8E6DF;
       border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: var(--pebble-blue);
       letter-spacing: 0.05em; margin-bottom: 20px;
     }
-    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.25; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(2.3rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.25; margin-bottom: 20px; }
     .hero h1 span { color: var(--pebble-blue); }
-    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 36px; }
+    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 36px; }
 
     .btn-event {
       display: inline-block; background: var(--pebble-blue); color: #fff;
-      padding: 16px 36px; border-radius: var(--radius-pebble); font-size: 1.05rem; font-weight: 700;
+      padding: 18px 40px; border-radius: var(--radius-pebble); font-size: 1.1rem; font-weight: 700;
       box-shadow: 0 10px 25px rgba(74, 107, 130, 0.3); transition: transform 0.2s;
     }
-    .btn-event:hover { transform: translateY(-2px); }
+    .btn-event:hover { transform: translateY(-3px); }
 
-    /* Story */
-    .story { background: #EFECE6; padding: 80px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
-    .story-box { max-width: 680px; margin: 0 auto; text-align: center; }
-    .story-box h2 { font-size: 2rem; margin-bottom: 18px; }
-    .story-box p { color: #555; font-size: 1.05rem; margin-bottom: 14px; }
-
-    /* MBTI Section */
-    .mbti-section { padding: 90px 0; }
-    .section-head { text-align: center; margin-bottom: 45px; }
-    .section-head h2 { font-size: 2.2rem; margin-bottom: 10px; }
-    .section-head p { color: var(--text-muted); }
-
-    .mbti-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 35px; flex-wrap: wrap; }
-    .mbti-tab {
-      padding: 10px 20px; border-radius: var(--radius-pebble); background: #E8E6DF;
-      border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    /* Story Section */
+    .story-section {
+      background: #EFECE6; padding: 80px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft);
+      text-align: center;
     }
-    .mbti-tab.active { background: var(--pebble-blue); color: #fff; }
+    .story-box { max-width: 650px; margin: 0 auto; }
+    .story-box h2 { font-size: 2.1rem; margin-bottom: 20px; font-weight: 800; }
+    .story-box p { color: #555; font-size: 1.05rem; line-height: 1.8; margin-bottom: 14px; }
 
-    .mbti-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-    .mbti-card {
-      background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: 24px;
-      padding: 24px; transition: transform 0.2s;
+    /* Guide Section */
+    .test-guide { padding: 90px 0; text-align: center; }
+    .guide-cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px; margin-top: 40px; text-align: left;
     }
-    .mbti-card:hover { transform: translateY(-4px); }
-    .mbti-tag { display: inline-block; font-size: 1.1rem; font-weight: 800; color: var(--pebble-blue); margin-bottom: 8px; }
-    .mbti-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
-    .mbti-style { font-size: 0.9rem; color: #666; }
-
-    /* Banner */
-    .banner {
-      background: linear-gradient(135deg, #222225, #354958); color: #fff;
-      border-radius: 30px; padding: 50px 30px; text-align: center; margin: 60px 0 100px;
+    .guide-card {
+      background: var(--bg-card); border: 1px solid var(--border-soft);
+      padding: 30px 25px; border-radius: 24px;
     }
-    .banner h3 { font-size: 1.8rem; margin-bottom: 12px; }
-    .banner p { color: #ccc; margin-bottom: 24px; }
+    .guide-num { font-size: 1.5rem; font-weight: 900; color: var(--pebble-blue); margin-bottom: 12px; }
+    .guide-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .guide-card p { font-size: 0.95rem; color: #666; }
 
-    footer { background: #1B1B1D; color: #8C8C92; text-align: center; padding: 40px 0; font-size: 0.85rem; }
+    footer { background: #1B1B1D; color: #8C8C92; text-align: center; padding: 45px 0; font-size: 0.85rem; }
   </style>
 </head>
 <body>
@@ -103,68 +89,52 @@
       <a href="/" class="brand-logo">
         <img src="input_file_0.png" alt="pebblous" onerror="this.outerHTML='<span style=\'font-weight:800;font-size:1.4rem;\'>pebblous</span>'">
       </a>
-      <a href="/event" class="nav-cta">연말 무료 진단 신청 ➔</a>
+      <a href="/event" class="nav-cta">무료 스타일 진단받기 ➔</a>
     </div>
   </header>
 
   <section class="hero">
     <div class="container">
       <span class="badge">DIFFERENT SHAPES OF PEBBLES</span>
-      <h1>조약돌처럼 다채로운,<br><span>나만의 MBTI 스타일링</span></h1>
-      <p>세상에 완전히 똑같은 조약돌이 없듯, 유행에 나를 맞추지 말고 내 MBTI와 체형에 꼭 맞는 스타일을 찾아보세요.</p>
-      <a href="/event" class="btn-event">🎁 연말 한정 3대 진단 시작하기</a>
+      <h1>조약돌처럼 다채로운,<br><span>나만의 패션 스타일</span></h1>
+      <p>세상에 똑같은 조약돌이 없듯, 유행에 나를 맞추지 말고 내 체형과 MBTI에 꼭 맞는 실루엣을 찾아보세요.</p>
+      <a href="/event" class="btn-event">나만의 스타일 진단 시작하기 ➔</a>
     </div>
   </section>
 
-  <section class="story">
+  <section class="story-section">
     <div class="container story-box">
       <h2>조약돌이 가진 저마다의 결</h2>
       <p>파도와 시간을 지나며 각자 다른 굴곡과 질감을 품게 된 바닷가의 조약돌들.</p>
-      <p>pebblous는 정해진 정답 대신, 당신이 가진 고유한 개성과 성향(MBTI)을 가장 자연스럽게 드러내는 핏을 제안합니다.</p>
+      <p>pebblous는 정해진 정답 대신, 당신이 가진 고유한 체형의 곡선과 성향(MBTI)을 가장 자연스럽게 드러내는 스타일을 제안합니다.</p>
     </div>
   </section>
 
-  <section class="mbti-section">
+  <section class="test-guide">
     <div class="container">
-      <div class="section-head">
-        <h2>MBTI 패션 큐레이션</h2>
-        <p>내 성향이 편안하게 숨 쉬는 최적의 코디 무드</p>
+      <h2 style="font-size:2.2rem; font-weight:800;">3단계 맞춤 진단 프로세스</h2>
+      <p style="color:var(--text-muted); font-size:1.05rem; margin-top:8px;">약 2분의 간단한 테스트로 나만의 1:1 맞춤 무료권을 받아보세요.</p>
+
+      <div class="guide-cards">
+        <div class="guide-card">
+          <div class="guide-num">01</div>
+          <h3>체형 & 골격 진단</h3>
+          <p>스트레이트, 웨이브, 내추럴 중 내 뼈대와 실루엣에 어울리는 최적의 핏을 찾아냅니다.</p>
+        </div>
+        <div class="guide-card">
+          <div class="guide-num">02</div>
+          <h3>퍼스널 컬러 분석</h3>
+          <p>내 피부톤에 생기를 불어넣고 얼굴빛을 환하게 밝혀주는 계절별 컬러 팔레트를 매칭합니다.</p>
+        </div>
+        <div class="guide-card">
+          <div class="guide-num">03</div>
+          <h3>MBTI 성향 스타일링</h3>
+          <p>12가지 패션 취향 문항을 통해 내가 가장 편안하고 나답게 입을 수 있는 무드를 분석합니다.</p>
+        </div>
       </div>
 
-      <div class="mbti-tabs">
-        <button class="mbti-tab active" onclick="filterMBTI('all')">전체보기</button>
-        <button class="mbti-tab" onclick="filterMBTI('NF')">감성·직관 (NF)</button>
-        <button class="mbti-tab" onclick="filterMBTI('NT')">이성·지성 (NT)</button>
-        <button class="mbti-tab" onclick="filterMBTI('SP')">자유·감각 (SP)</button>
-        <button class="mbti-tab" onclick="filterMBTI('SJ')">안정·원칙 (SJ)</button>
-      </div>
-
-      <div class="mbti-grid" id="mbtiGrid">
-        <div class="mbti-card" data-group="NF"><span class="mbti-tag">INFP</span><div class="mbti-title">빈티지 코지 룩</div><div class="mbti-style">포근한 케이블 니트와 내추럴 롱스커트</div></div>
-        <div class="mbti-card" data-group="NF"><span class="mbti-tag">ENFP</span><div class="mbti-title">유니크 컬러 포인트</div><div class="mbti-style">생동감 있는 비비드 포인트 & 스트리트 믹스</div></div>
-        <div class="mbti-card" data-group="NF"><span class="mbti-tag">INFJ</span><div class="mbti-title">미니멀 감성 룩</div><div class="mbti-style">차분한 뉴트럴 톤의 롱코트와 정갈한 실루엣</div></div>
-        <div class="mbti-card" data-group="NF"><span class="mbti-tag">ENFJ</span><div class="mbti-title">소프트 클래식</div><div class="mbti-style">단정하면서도 온화한 셔츠 & 슬랙스 조합</div></div>
-        
-        <div class="mbti-card" data-group="NT"><span class="mbti-tag">INTJ</span><div class="mbti-title">테일러드 올블랙</div><div class="mbti-style">절제된 모노톤 수트 셋업과 시크한 가죽 포인트</div></div>
-        <div class="mbti-card" data-group="NT"><span class="mbti-tag">ENTJ</span><div class="mbti-title">모던 파워 드레싱</div><div class="mbti-style">각 잡힌 숄더 블레이저와 세련된 오피스 핏</div></div>
-        <div class="mbti-card" data-group="NT"><span class="mbti-tag">INTP</span><div class="mbti-title">오버핏 릴렉스</div><div class="mbti-style">편안하고 지적인 루즈핏 셔츠와 와이드 치노</div></div>
-        <div class="mbti-card" data-group="NT"><span class="mbti-tag">ENTP</span><div class="mbti-title">아방가르드 캐주얼</div><div class="mbti-style">비대칭 컷팅과 과감한 레이어드 믹스매치</div></div>
-
-        <div class="mbti-card" data-group="SP"><span class="mbti-tag">ISFP</span><div class="mbti-title">코지 내추럴</div><div class="mbti-style">자연스러운 리넨 셔츠와 편안한 스니커즈</div></div>
-        <div class="mbti-card" data-group="SP"><span class="mbti-tag">ESFP</span><div class="mbti-title">트렌디 페스티벌</div><div class="mbti-style">크롭 기장 아우터와 시선을 끄는 볼드 액세서리</div></div>
-        <div class="mbti-card" data-group="SP"><span class="mbti-tag">ISTP</span><div class="mbti-title">고프코어 워크웨어</div><div class="mbti-style">실용적인 기능성 재킷과 유틸리티 카고 팬츠</div></div>
-        <div class="mbti-card" data-group="SP"><span class="mbti-tag">ESTP</span><div class="mbti-title">스포티 레더 룩</div><div class="mbti-style">스포티한 바시티 재킷이나 바이커 레더 재킷</div></div>
-
-        <div class="mbti-card" data-group="SJ"><span class="mbti-tag">ISTJ</span><div class="mbti-title">타임리스 클래식</div><div class="mbti-style">유행을 타지 않는 정통 트렌치코트와 옥스퍼드 셔츠</div></div>
-        <div class="mbti-card" data-group="SJ"><span class="mbti-tag">ESTJ</span><div class="mbti-title">스마트 비즈니스</div><div class="mbti-style">신뢰감을 주는 칼주름 슬랙스와 단정한 로퍼</div></div>
-        <div class="mbti-card" data-group="SJ"><span class="mbti-tag">ISFJ</span><div class="mbti-title">단아한 프레피 룩</div><div class="mbti-style">단정한 가디건과 플리츠 스커트 / 깔끔한 치노</div></div>
-        <div class="mbti-card" data-group="SJ"><span class="mbti-tag">ESFJ</span><div class="mbti-title">러블리 세미캐주얼</div><div class="mbti-style">화사한 파스텔 톤 니트와 부드러운 와이드 팬츠</div></div>
-      </div>
-
-      <div class="banner">
-        <h3>내 MBTI와 체형에 꼭 맞는 코디가 궁금하다면?</h3>
-        <p>퍼스널 컬러 + 골격 분석 + 1:1 스타일링 솔루션을 연말 한정으로 무료 진단해 드립니다.</p>
-        <a href="/event" class="btn-event" style="background:#fff; color:#222;">지금 진단받으러 가기 ➔</a>
+      <div style="margin-top: 55px;">
+        <a href="/event" class="btn-event" style="background:#222225;">내 MBTI 스타일 테스트하기 ➔</a>
       </div>
     </div>
   </section>
@@ -173,21 +143,5 @@
     <p>&copy; pebblous. All Rights Reserved. Different Shapes of Pebbles.</p>
   </footer>
 
-  <script>
-    function filterMBTI(group) {
-      document.querySelectorAll('.mbti-tab').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-      document.querySelectorAll('.mbti-card').forEach(card => {
-        if (group === 'all' || card.getAttribute('data-group') === group) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-  </script>
-</body>
-</html>
-  </script>
 </body>
 </html>
