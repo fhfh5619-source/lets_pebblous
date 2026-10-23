@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 10000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "sonyangi777";
 
 // ★ 발급받으신 구글 시트 웹 앱 URL을 여기에 따옴표 안에 붙여넣으세요!
-const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_URL || "";
+const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_URL || "https://script.google.com/macros/s/AKfycbxRS-0UPlpbEh-0CREa4UfwaX0-9FjdsyWlx-0VfJ0GZRWg0-FcDzA1n1BTVFCPwzcGnQ/exec";
 
 // 관리자 풀이서 데이터베이스
 const REPORT_DB = {
