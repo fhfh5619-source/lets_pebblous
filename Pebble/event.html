@@ -3,264 +3,337 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>pebblous 연말 한정 3대 진단 이벤트</title>
+  <title>WINTER MOOD STYLING | lets_pebblous</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: Pretendard, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
-    
-    body {
-      background: #ECEAE4;
-      color: #1e1e20;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      min-height: 100dvh;
-    }
+    body { background: #ECEAE4; color: #1e1e20; display: flex; justify-content: center; align-items: center; min-height: 100vh; min-height: 100dvh; }
 
-    .app-card {
-      width: 100%;
-      background: #FAF9F6;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow-y: auto;
-    }
+    .app-card { width: 100%; background: #FAF9F6; display: flex; flex-direction: column; position: relative; overflow-y: auto; }
 
     /* PC 데스크톱 */
     @media (min-width: 769px) {
       body { padding: 40px 20px; }
-      .app-card {
-        max-width: 640px;
-        min-height: 720px;
-        border-radius: 32px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-        border: 1px solid rgba(0,0,0,0.06);
-      }
+      .app-card { max-width: 680px; min-height: 750px; border-radius: 32px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.06); }
       .step-page { padding: 45px 40px; }
-      .q-title { font-size: 1.6rem; }
-      .option-btn { padding: 22px 24px; font-size: 1.05rem; }
+      .q-title { font-size: 1.65rem; }
     }
 
     /* 모바일 세로 */
     @media (max-width: 768px) {
       body { background: #FAF9F6; align-items: stretch; }
-      .app-card {
-        max-width: 100%;
-        min-height: 100vh;
-        min-height: 100dvh;
-        border-radius: 0;
-        box-shadow: none;
-      }
+      .app-card { max-width: 100%; min-height: 100vh; min-height: 100dvh; border-radius: 0; box-shadow: none; }
       .step-page { padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
       .q-title { font-size: 1.35rem; }
-      .option-btn { padding: 18px 18px; font-size: 0.98rem; }
     }
 
     .progress-bar-container { width: 100%; height: 5px; background: #e3e1da; position: sticky; top: 0; z-index: 10; }
     .progress-bar { height: 100%; width: 0%; background: #4A6B82; transition: width 0.3s ease; }
 
-    .header-bar {
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #4A6B82;
-      background: #FAF9F6;
-    }
+    .header-bar { padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.95rem; font-weight: 800; color: #4A6B82; background: #FAF9F6; }
     .header-bar a { text-decoration: none; color: #888; font-size: 0.88rem; font-weight: 600; }
 
     .step-page { display: none; flex: 1; flex-direction: column; animation: fadeIn 0.3s ease; }
     .step-page.active { display: flex; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .q-number { font-size: 0.88rem; font-weight: 800; color: #4A6B82; margin-bottom: 10px; }
-    .q-title { font-weight: 800; line-height: 1.4; margin-bottom: 12px; letter-spacing: -0.02em; }
-    .q-sub { font-size: 0.95rem; color: #777; margin-bottom: 26px; }
+    .q-number { font-size: 0.85rem; font-weight: 800; color: #4A6B82; margin-bottom: 8px; text-transform: uppercase; }
+    .q-title { font-weight: 800; line-height: 1.4; margin-bottom: 10px; letter-spacing: -0.02em; }
+    .q-sub { font-size: 0.95rem; color: #777; margin-bottom: 24px; line-height: 1.5; }
 
-    .option-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: auto; }
-    .option-btn {
-      background: #fff;
-      border: 1.5px solid #E6E4DD;
-      border-radius: 20px;
-      text-align: left;
-      font-weight: 600;
-      color: #333;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      line-height: 1.45;
+    /* 이미지 선택 그리드 (4가지 스타일) */
+    .style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .style-card {
+      background: #fff; border: 2px solid #E6E4DD; border-radius: 20px; overflow: hidden;
+      cursor: pointer; transition: all 0.25s ease; text-align: left;
     }
-    .option-btn:hover { border-color: #4A6B82; background: #F3F6F8; }
-    .option-btn:active { transform: scale(0.99); }
+    .style-card:hover { border-color: #4A6B82; }
+    .style-card.selected { border-color: #4A6B82; box-shadow: 0 0 0 3px rgba(74, 107, 130, 0.25); background: #F4F7F9; }
+    .style-img { width: 100%; height: 180px; object-fit: cover; background: #ddd; display: block; }
+    .style-info { padding: 12px 14px; }
+    .style-info strong { display: block; font-size: 1rem; color: #222; margin-bottom: 2px; }
+    .style-info span { font-size: 0.8rem; color: #777; }
 
-    .input-field {
-      width: 100%;
-      padding: 18px 20px;
-      border: 1.5px solid #E0DED7;
-      border-radius: 18px;
-      font-size: 1rem;
-      margin-bottom: 18px;
-      outline: none;
-      background: #fff;
+    /* 입력 폼 */
+    .input-field, .textarea-field {
+      width: 100%; padding: 16px 18px; border: 1.5px solid #E0DED7;
+      border-radius: 16px; font-size: 1rem; margin-bottom: 16px; outline: none; background: #fff; line-height: 1.5;
     }
-    .input-field:focus { border-color: #4A6B82; }
+    .textarea-field { height: 100px; resize: none; }
+    .input-field:focus, .textarea-field:focus { border-color: #4A6B82; }
 
-    .bottom-nav { margin-top: 30px; display: flex; gap: 10px; }
+    /* 버튼 리스트 */
+    .chip-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .chip {
+      background: #fff; border: 1.5px solid #E0DED7; padding: 12px 18px;
+      border-radius: 999px; font-size: 0.95rem; font-weight: 600; color: #444; cursor: pointer; transition: all 0.2s;
+    }
+    .chip:hover { border-color: #4A6B82; }
+    .chip.selected { background: #4A6B82; color: #fff; border-color: #4A6B82; }
+
+    .bottom-nav { margin-top: auto; padding-top: 25px; display: flex; gap: 10px; }
     .btn-next {
       flex: 1; background: #222225; color: #fff; padding: 18px;
-      border-radius: 20px; font-size: 1.05rem; font-weight: 700; border: none; cursor: pointer; text-align: center; text-decoration: none;
-      transition: background 0.2s;
+      border-radius: 18px; font-size: 1.05rem; font-weight: 700; border: none; cursor: pointer; text-align: center; text-decoration: none;
     }
     .btn-next:hover { background: #4A6B82; }
-    .btn-prev {
-      background: #E8E6DF; color: #555; padding: 18px 22px;
-      border-radius: 20px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer;
-    }
-
-    .result-stone {
-      width: 90px; height: 75px; background: linear-gradient(135deg, #4A6B82, #293d4a);
-      border-radius: 35px 20px 30px 25px / 25px 35px 25px 30px; margin: 15px auto;
-      display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff;
-    }
+    .btn-prev { background: #E8E6DF; color: #555; padding: 18px 22px; border-radius: 18px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer; }
+    
+    .event-info-box { background: #fff; border-radius: 20px; padding: 22px; border: 1px solid #E7E5DE; margin-bottom: 20px; font-size: 0.92rem; line-height: 1.8; color: #444; }
   </style>
 </head>
 <body>
   <div class="app-card">
     <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
-    <div class="header-bar"><span>pebblous</span><a href="/">홈으로 ✕</a></div>
+    <div class="header-bar"><span>lets_pebblous</span><a href="/">홈으로 ✕</a></div>
 
-    <!-- Intro -->
+    <!-- 0. 이벤트 인트로 (기획안 1~3번 내용) -->
     <div class="step-page active" id="page0">
-      <div style="margin: auto 0;">
-        <span style="display:inline-block; padding:5px 14px; background:#D94848; color:#fff; border-radius:999px; font-size:0.8rem; font-weight:700; margin-bottom:14px;">연말 특별 프로모션</span>
-        <h1 class="q-title" style="font-size: clamp(1.6rem, 4vw, 2rem);">골격 + 퍼컬 + 스타일링<br>3대 진단 무료 신청</h1>
-        <p class="q-sub" style="font-size:1.02rem; line-height:1.7;">체형의 뼈대와 피부톤을 진단받고, 전문 스타일리스트의 1:1 맞춤 무료권을 받아보세요.</p>
-        <div style="background:#fff; border-radius:20px; padding:22px; border:1px solid #e7e5de; font-size:0.98rem; color:#444; line-height: 1.8;">
-          ⏱ <strong>소요 시간:</strong> 약 1분<br>
-          🎁 <strong>참여 혜택: 1:1 맞춤 무료권</strong>
+      <div>
+        <span style="display:inline-block; padding:5px 12px; background:#4A6B82; color:#fff; border-radius:999px; font-size:0.75rem; font-weight:700; margin-bottom:12px;">WINTER MOOD STYLING</span>
+        <h1 class="q-title" style="font-size: clamp(1.6rem, 4.5vw, 2.1rem);">이번 겨울,<br>나만의 무드를 스타일링하다.</h1>
+        <p class="q-sub">단순한 제품 증정이 아닌, 나의 취향과 겨울 코디 고민을 해결해 드리는 <strong>1:1 온라인 겨울 맞춤 스타일링 컨설팅</strong> 이벤트입니다.</p>
+
+        <div class="event-info-box">
+          <p>🎁 <strong>선정 혜택:</strong> 1:1 온라인 겨울 스타일링 컨설팅 (5명 추첨)</p>
+          <p>📄 <strong>제공 결과물:</strong> 겨울 코디 3세트 + 개인 맞춤 룩북 이미지 1장</p>
+          <p>🎟 <strong>추가 혜택:</strong> lets_pebblous 겨울 제품 시크릿 할인 쿠폰</p>
         </div>
       </div>
-      <div class="bottom-nav"><button class="btn-next" onclick="goToStep(1)">진단 신청 시작 ➔</button></div>
+      <div class="bottom-nav"><button class="btn-next" onclick="goToStep(1)">신청서 작성하기 ➔</button></div>
     </div>
 
-    <!-- 1. 퍼스널 컬러 -->
+    <!-- 1. 기본 인적 사항 (이름/인스타 계정, 연락처) -->
     <div class="step-page" id="page1">
-      <div class="q-number">Step 1 / 3</div>
-      <h2 class="q-title">얼굴을 가장 화사하게 밝혀주는 톤은?</h2>
-      <p class="q-sub">평소 잘 어울린다고 칭찬받는 색감을 골라주세요.</p>
-      <div class="option-list">
-        <div class="option-btn" onclick="saveAnswer('color', '봄 웜톤', 2)"><span>☀️ 생기 있는 코랄 / 아이보리 (봄 웜)</span><span>➔</span></div>
-        <div class="option-btn" onclick="saveAnswer('color', '여름 쿨톤', 2)"><span>🌸 청량한 파스텔 / 라벤더 (여름 쿨)</span><span>➔</span></div>
-        <div class="option-btn" onclick="saveAnswer('color', '가을 웜톤', 2)"><span>🍂 차분한 카멜 / 브라운 (가을 웜)</span><span>➔</span></div>
-        <div class="option-btn" onclick="saveAnswer('color', '겨울 쿨톤', 2)"><span>❄️ 시크한 퓨어 화이트 / 블랙 (겨울 쿨)</span><span>➔</span></div>
+      <div class="q-number">Step 1 / 6</div>
+      <h2 class="q-title">신청자 정보를 입력해주세요</h2>
+      <p class="q-sub">컨설팅 결과물 전달 및 인스타그램 팔로우 확인을 위해 사용됩니다.</p>
+
+      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">이름 또는 인스타그램 계정 (@id) *</label>
+      <input type="text" id="custName" class="input-field" placeholder="예: 홍길동 또는 @lets_pebblous">
+
+      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">결과물을 수신할 연락처 (휴대폰 번호) *</label>
+      <input type="tel" id="custPhone" class="input-field" placeholder="010-0000-0000">
+
+      <div class="bottom-nav">
+        <button class="btn-prev" onclick="goToStep(0)">이전</button>
+        <button class="btn-next" onclick="validateStep1()">다음 ➔</button>
       </div>
-      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(0)">이전</button></div>
     </div>
 
-    <!-- 2. 골격 진단 -->
+    <!-- 2. 평소 선호하는 스타일 (이미지 4가지 선택) -->
     <div class="step-page" id="page2">
-      <div class="q-number">Step 2 / 3</div>
-      <h2 class="q-title">거울을 볼 때 가장 돋보이는 체형 특징은?</h2>
-      <p class="q-sub">체형의 뼈대와 볼륨 위치에 꼭 맞는 핏을 제안해 드립니다.</p>
-      <div class="option-list">
-        <div class="option-btn" onclick="saveAnswer('skeleton', '스트레이트', 3)"><span><strong>스트레이트</strong> (상체 볼륨감, 탄력 있는 피부결)</span><span>➔</span></div>
-        <div class="option-btn" onclick="saveAnswer('skeleton', '웨이브', 3)"><span><strong>웨이브</strong> (가느다란 쇄골과 얇고 긴 허리선)</span><span>➔</span></div>
-        <div class="option-btn" onclick="saveAnswer('skeleton', '내추럴', 3)"><span><strong>내추럴</strong> (관절과 골격 프레임이 멋진 체형)</span><span>➔</span></div>
+      <div class="q-number">Step 2 / 6</div>
+      <h2 class="q-title">평소 선호하는 스타일은 무엇인가요?</h2>
+      <p class="q-sub">가장 마음에 드는 스타일 취향 카드를 하나 선택해 주세요.</p>
+
+      <div class="style-grid">
+        <!-- Minimal -->
+        <div class="style-card" onclick="selectStyleCard(this, 'MINIMAL')">
+          <img src="style_minimal.jpg" class="style-img" alt="MINIMAL" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80'">
+          <div class="style-info">
+            <strong>MINIMAL</strong>
+            <span>깔끔하고 절제된 스타일</span>
+          </div>
+        </div>
+        <!-- Casual -->
+        <div class="style-card" onclick="selectStyleCard(this, 'CASUAL')">
+          <img src="style_casual.jpg" class="style-img" alt="CASUAL" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80'">
+          <div class="style-info">
+            <strong>CASUAL</strong>
+            <span>편안하고 자연스러운 스타일</span>
+          </div>
+        </div>
+        <!-- Feminine -->
+        <div class="style-card" onclick="selectStyleCard(this, 'FEMININE')">
+          <img src="style_feminine.jpg" class="style-img" alt="FEMININE" onerror="this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80'">
+          <div class="style-info">
+            <strong>FEMININE</strong>
+            <span>부드럽고 세련된 스타일</span>
+          </div>
+        </div>
+        <!-- Street -->
+        <div class="style-card" onclick="selectStyleCard(this, 'STREET')">
+          <img src="style_street.jpg" class="style-img" alt="STREET" onerror="this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80'">
+          <div class="style-info">
+            <strong>STREET</strong>
+            <span>트렌디하고 개성 있는 스타일</span>
+          </div>
+        </div>
       </div>
-      <div class="bottom-nav"><button class="btn-prev" onclick="goToStep(1)">이전</button></div>
+
+      <div class="bottom-nav">
+        <button class="btn-prev" onclick="goToStep(1)">이전</button>
+        <button class="btn-next" onclick="validateStep2()">다음 ➔</button>
+      </div>
     </div>
 
-    <!-- 3. MBTI 및 정보 입력 -->
+    <!-- 3. 겨울 패션 고민점 & 자주 입는 컬러 -->
     <div class="step-page" id="page3">
-      <div class="q-number">Step 3 / 3</div>
-      <h2 class="q-title">1:1 맞춤 무료권을 받으실 정보</h2>
-      <p class="q-sub">전문 스타일리스트가 배정되어 리포트를 문자로 보내드립니다.</p>
+      <div class="q-number">Step 3 / 6</div>
+      <h2 class="q-title">겨울 패션에서 가장 고민되는 점은?</h2>
+      <p class="q-sub">해결하고 싶은 스타일 고민을 구체적으로 알려주세요.</p>
 
-      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:8px;">나의 MBTI</label>
-      <select id="custMBTI" class="input-field" style="font-weight:700;">
-        <option value="INFP">INFP</option><option value="ENFP">ENFP</option>
-        <option value="INFJ">INFJ</option><option value="ENFJ">ENFJ</option>
-        <option value="INTJ">INTJ</option><option value="ENTJ">ENTJ</option>
-        <option value="INTP">INTP</option><option value="ENTP">ENTP</option>
-        <option value="ISFP">ISFP</option><option value="ESFP">ESFP</option>
-        <option value="ISTP">ISTP</option><option value="ESTP">ESTP</option>
-        <option value="ISTJ">ISTJ</option><option value="ESTJ">ESTJ</option>
-        <option value="ISFJ">ISFJ</option><option value="ESFJ">ESFJ</option>
-      </select>
+      <div class="chip-group" id="worryChips">
+        <div class="chip" onclick="toggleChip(this)">부해 보이지 않는 슬림한 핏</div>
+        <div class="chip" onclick="toggleChip(this)">단조로운 아우터 탈피 / 컬러 매칭</div>
+        <div class="chip" onclick="toggleChip(this)">따뜻하면서도 감각적인 레이어드</div>
+        <div class="chip" onclick="toggleChip(this)">체형 커버 및 실루엣 연출</div>
+      </div>
 
-      <input type="text" id="custName" class="input-field" placeholder="성함 또는 닉네임">
-      <input type="tel" id="custPhone" class="input-field" placeholder="휴대폰 번호 (010-0000-0000)">
+      <textarea id="worryDetail" class="textarea-field" placeholder="더 자세한 고민이나 상황(출근룩, 데이트룩 등)을 적어주셔도 좋아요."></textarea>
 
       <div class="bottom-nav">
         <button class="btn-prev" onclick="goToStep(2)">이전</button>
-        <button class="btn-next" onclick="submitEvent()">신청 완료 ➔</button>
+        <button class="btn-next" onclick="goToStep(4)">다음 ➔</button>
       </div>
     </div>
 
-    <!-- 완료 페이지 -->
+    <!-- 4. 자주 입는 컬러 & 원하는 스타일링 무드 -->
     <div class="step-page" id="page4">
-      <div style="text-align: center; margin: auto 0;">
-        <div class="result-stone">🎁</div>
-        <h2 class="q-title">신청이 완료되었습니다!</h2>
-        <p class="q-sub" id="resSummaryText" style="line-height:1.65;"></p>
+      <div class="q-number">Step 4 / 6</div>
+      <h2 class="q-title">자주 입는 컬러와 원하는 무드는?</h2>
+      <p class="q-sub">나만의 겨울 색감 팔레트를 조합해 드립니다.</p>
 
-        <div style="background:#EFECE6; border-radius:20px; padding:22px; text-align:left; font-size:0.98rem; color:#333; line-height:1.6;">
-          🎉 <strong>1:1 맞춤 무료권이 정상 발급되었습니다.</strong><br>
-          <span style="font-size:0.88rem; color:#777;">영업일 기준 1~2일 내로 기재하신 번호로 전담 스타일 가이드가 발송됩니다.</span>
+      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">자주 입는 컬러 *</label>
+      <input type="text" id="custColor" class="input-field" placeholder="예: 블랙, 차콜, 크림, 베이지, 카키 등">
+
+      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">이번 겨울 연출하고 싶은 스타일링 무드 *</label>
+      <input type="text" id="custMood" class="input-field" placeholder="예: 시크하고 단정한 직장인 룩, 따뜻하고 여유로운 카페 무드 등">
+
+      <div class="bottom-nav">
+        <button class="btn-prev" onclick="goToStep(3)">이전</button>
+        <button class="btn-next" onclick="validateStep4()">다음 ➔</button>
+      </div>
+    </div>
+
+    <!-- 5. 옷 입을 때 중요하게 생각하는 부분 & 참고 사진 링크 -->
+    <div class="step-page" id="page5">
+      <div class="q-number">Step 5 / 6</div>
+      <h2 class="q-title">옷을 입을 때 가장 중요하게 생각하는 부분은?</h2>
+      <p class="q-sub">컨설팅 시 우선적으로 고려할 가치를 선택해 주세요.</p>
+
+      <div class="chip-group" id="importantChips">
+        <div class="chip" onclick="toggleChip(this)">핏 & 실루엣</div>
+        <div class="chip" onclick="toggleChip(this)">소재감 & 텍스처</div>
+        <div class="chip" onclick="toggleChip(this)">편안한 활동성</div>
+        <div class="chip" onclick="toggleChip(this)">확실한 보온성</div>
+        <div class="chip" onclick="toggleChip(this)">유행을 타지 않는 타임리스</div>
+      </div>
+
+      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">참고하고 싶은 스타일 사진 또는 인스타 링크 (선택)</label>
+      <input type="text" id="custRef" class="input-field" placeholder="인스타그램 게시물 링크나 핀터레스트 링크">
+
+      <div class="bottom-nav">
+        <button class="btn-prev" onclick="goToStep(4)">이전</button>
+        <button class="btn-next" onclick="submitWinterEvent()">신청서 제출 완료 ➔</button>
+      </div>
+    </div>
+
+    <!-- 6. 신청 완료 페이지 -->
+    <div class="step-page" id="page6">
+      <div style="text-align: center; margin: auto 0;">
+        <div style="font-size: 3rem; margin-bottom: 12px;">❄️</div>
+        <h2 class="q-title">신청이 정상 접수되었습니다!</h2>
+        <p class="q-sub" id="resSummary" style="line-height:1.65;"></p>
+
+        <div style="background:#fff; border:1px solid #E6E4DD; border-radius:20px; padding:22px; text-align:left; font-size:0.92rem; line-height:1.8; color:#444; margin-bottom:20px;">
+          📅 <strong>선정 발표:</strong> 이벤트 마감 후 개별 안내 및 인스타그램 공지<br>
+          ✨ <strong>당첨 시 제공:</strong> 개인 코디 3세트 + 맞춤 룩북 이미지 1장<br>
+          🎁 <strong>신청 감사 쿠폰:</strong> lets_pebblous 10% 시크릿 코드: <strong style="color:#4A6B82;">WINTERMOOD</strong>
         </div>
       </div>
-      <div class="bottom-nav"><a href="/" class="btn-next" style="text-align:center; text-decoration:none;">홈으로 이동</a></div>
+
+      <div class="bottom-nav"><a href="/" class="btn-next">홈으로 이동</a></div>
     </div>
   </div>
 
   <script>
-    let eventData = { color: '', skeleton: '' };
+    let formData = {
+      name: '',
+      phone: '',
+      preferredStyle: '',
+      worries: [],
+      worryDetail: '',
+      color: '',
+      mood: '',
+      importances: [],
+      referenceUrl: ''
+    };
 
     function goToStep(idx) {
       document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
       document.getElementById('page' + idx).classList.add('active');
-      document.getElementById('progressBar').style.width = (idx * 25) + '%';
+      document.getElementById('progressBar').style.width = (idx * (100 / 6)) + '%';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function saveAnswer(key, val, next) {
-      eventData[key] = val;
-      goToStep(next);
-    }
-
-    async function submitEvent() {
+    function validateStep1() {
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
-      const mbti = document.getElementById('custMBTI').value;
-
       if (!name || !phone) {
-        alert('성함과 휴대폰 번호를 모두 입력해주세요!');
+        alert('이름(계정)과 연락처를 모두 입력해주세요!');
         return;
       }
+      formData.name = name;
+      formData.phone = phone;
+      goToStep(2);
+    }
 
-      const payload = { name, phone, mbti, skeleton: eventData.skeleton, color: eventData.color };
+    function selectStyleCard(card, styleName) {
+      document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      formData.preferredStyle = styleName;
+    }
+
+    function validateStep2() {
+      if (!formData.preferredStyle) {
+        alert('선호하는 스타일 카드를 1개 선택해주세요!');
+        return;
+      }
+      goToStep(3);
+    }
+
+    function toggleChip(chip) {
+      chip.classList.toggle('selected');
+    }
+
+    function validateStep4() {
+      const color = document.getElementById('custColor').value.trim();
+      const mood = document.getElementById('custMood').value.trim();
+      if (!color || !mood) {
+        alert('자주 입는 컬러와 원하는 무드를 입력해주세요!');
+        return;
+      }
+      formData.color = color;
+      formData.mood = mood;
+      goToStep(5);
+    }
+
+    async function submitWinterEvent() {
+      // 칩 데이터 수집
+      formData.worries = Array.from(document.querySelectorAll('#worryChips .chip.selected')).map(c => c.innerText);
+      formData.worryDetail = document.getElementById('worryDetail').value.trim();
+      formData.importances = Array.from(document.querySelectorAll('#importantChips .chip.selected')).map(c => c.innerText);
+      formData.referenceUrl = document.getElementById('custRef').value.trim();
 
       try {
-        const res = await fetch('/api/diagnosis', {
+        const res = await fetch('/api/winter-consulting', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(formData)
         });
         const json = await res.json();
         if (json.success) {
-          document.getElementById('resSummaryText').innerHTML = `<strong>${name}</strong>님의 <strong>[${mbti} × ${eventData.skeleton} × ${eventData.color}]</strong> 진단 데이터가 전담 스타일리스트에게 전달되었습니다.`;
-          goToStep(4);
+          document.getElementById('resSummary').innerHTML = `
+            <strong>${formData.name}</strong>님의 <strong>[${formData.preferredStyle} 스타일]</strong> 컨설팅 신청서가 lets_pebblous에 등록되었습니다.
+          `;
+          goToStep(6);
         } else {
           alert('신청 실패: ' + json.message);
         }
       } catch (e) {
-        alert('서버 연결 중 문제가 발생했습니다.');
+        alert('서버 연결 중 오류가 발생했습니다.');
       }
     }
   </script>
