@@ -5,251 +5,521 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>WINTER MOOD STYLING | lets_pebblous</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Pretendard, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background: #ECEAE4; color: #1e1e20; display: flex; justify-content: center; align-items: center; min-height: 100vh; min-height: 100dvh; }
+    :root {
+      --primary: #4A6B82;
+      --primary-hover: #3b576b;
+      --dark: #1E1E22;
+      --bg: #F4F3F0;
+      --card-bg: #FFFFFF;
+      --border: #E6E4DF;
+      --text-sub: #7A7978;
+    }
 
-    .app-card { width: 100%; background: #FAF9F6; display: flex; flex-direction: column; position: relative; overflow-y: auto; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Pretendard, -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    /* PC 데스크톱 */
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* Smore 스타일 컨테이너 */
+    .smore-container {
+      width: 100%;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    /* PC 뷰 (스모어 웹페이지 형태) */
     @media (min-width: 769px) {
       body { padding: 40px 20px; }
-      .app-card { max-width: 680px; min-height: 750px; border-radius: 32px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.06); }
-      .step-page { padding: 45px 40px; }
-      .q-title { font-size: 1.65rem; }
+      .smore-container {
+        max-width: 580px;
+        min-height: 780px;
+        border-radius: 28px;
+        box-shadow: 0 16px 45px rgba(0,0,0,0.06);
+        border: 1px solid rgba(0,0,0,0.05);
+      }
+      .page-inner { padding: 40px 36px 36px; }
     }
 
-    /* 모바일 세로 */
+    /* 모바일 세로 뷰 (인스타 링크인바이오 전용 풀스크린) */
     @media (max-width: 768px) {
-      body { background: #FAF9F6; align-items: stretch; }
-      .app-card { max-width: 100%; min-height: 100vh; min-height: 100dvh; border-radius: 0; box-shadow: none; }
-      .step-page { padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
-      .q-title { font-size: 1.35rem; }
+      .smore-container {
+        max-width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+        border-radius: 0;
+      }
+      .page-inner { padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
     }
 
-    .progress-bar-container { width: 100%; height: 5px; background: #e3e1da; position: sticky; top: 0; z-index: 10; }
-    .progress-bar { height: 100%; width: 0%; background: #4A6B82; transition: width 0.3s ease; }
+    /* 상단 프로그레스 바 */
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: #EAE8E2;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.35s ease;
+    }
 
-    .header-bar { padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.95rem; font-weight: 800; color: #4A6B82; background: #FAF9F6; }
-    .header-bar a { text-decoration: none; color: #888; font-size: 0.88rem; font-weight: 600; }
+    /* 헤더 */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      background: #fff;
+    }
+    .top-brand {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+    }
+    .top-close {
+      text-decoration: none;
+      font-size: 0.85rem;
+      color: #999;
+      font-weight: 600;
+    }
 
-    .step-page { display: none; flex: 1; flex-direction: column; animation: fadeIn 0.3s ease; }
+    /* 단계별 슬라이드 페이지 */
+    .step-page {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      animation: smoreSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
     .step-page.active { display: flex; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .q-number { font-size: 0.85rem; font-weight: 800; color: #4A6B82; margin-bottom: 8px; text-transform: uppercase; }
-    .q-title { font-weight: 800; line-height: 1.4; margin-bottom: 10px; letter-spacing: -0.02em; }
-    .q-sub { font-size: 0.95rem; color: #777; margin-bottom: 24px; line-height: 1.5; }
-
-    /* 이미지 선택 그리드 (4가지 스타일) */
-    .style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
-    .style-card {
-      background: #fff; border: 2px solid #E6E4DD; border-radius: 20px; overflow: hidden;
-      cursor: pointer; transition: all 0.25s ease; text-align: left;
+    @keyframes smoreSlide {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .style-card:hover { border-color: #4A6B82; }
-    .style-card.selected { border-color: #4A6B82; box-shadow: 0 0 0 3px rgba(74, 107, 130, 0.25); background: #F4F7F9; }
-    .style-img { width: 100%; height: 180px; object-fit: cover; background: #ddd; display: block; }
-    .style-info { padding: 12px 14px; }
-    .style-info strong { display: block; font-size: 1rem; color: #222; margin-bottom: 2px; }
-    .style-info span { font-size: 0.8rem; color: #777; }
 
-    /* 입력 폼 */
-    .input-field, .textarea-field {
-      width: 100%; padding: 16px 18px; border: 1.5px solid #E0DED7;
-      border-radius: 16px; font-size: 1rem; margin-bottom: 16px; outline: none; background: #fff; line-height: 1.5;
+    .page-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
-    .textarea-field { height: 100px; resize: none; }
-    .input-field:focus, .textarea-field:focus { border-color: #4A6B82; }
 
-    /* 버튼 리스트 */
-    .chip-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-    .chip {
-      background: #fff; border: 1.5px solid #E0DED7; padding: 12px 18px;
-      border-radius: 999px; font-size: 0.95rem; font-weight: 600; color: #444; cursor: pointer; transition: all 0.2s;
+    /* 커버 화면 룩북 비주얼 */
+    .cover-visual-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 10px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 24px;
     }
-    .chip:hover { border-color: #4A6B82; }
-    .chip.selected { background: #4A6B82; color: #fff; border-color: #4A6B82; }
+    .cover-visual-grid img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+    }
 
-    .bottom-nav { margin-top: auto; padding-top: 25px; display: flex; gap: 10px; }
-    .btn-next {
-      flex: 1; background: #222225; color: #fff; padding: 18px;
-      border-radius: 18px; font-size: 1.05rem; font-weight: 700; border: none; cursor: pointer; text-align: center; text-decoration: none;
+    .tag-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(74, 107, 130, 0.1);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      width: fit-content;
     }
-    .btn-next:hover { background: #4A6B82; }
-    .btn-prev { background: #E8E6DF; color: #555; padding: 18px 22px; border-radius: 18px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer; }
-    
-    .event-info-box { background: #fff; border-radius: 20px; padding: 22px; border: 1px solid #E7E5DE; margin-bottom: 20px; font-size: 0.92rem; line-height: 1.8; color: #444; }
+
+    .q-step-indicator {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .q-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .q-sub {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 26px;
+    }
+
+    /* 이미지 선택 그리드 (MINIMAL, CASUAL, FEMININE, STREET) */
+    .img-select-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .img-card {
+      background: #FAFAFA;
+      border: 2px solid #EAE8E2;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .img-card:hover { border-color: var(--primary); }
+    .img-card.selected {
+      border-color: var(--primary);
+      background: #F4F7F9;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    .img-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+    }
+    .img-card-info {
+      padding: 12px;
+    }
+    .img-card-info strong {
+      display: block;
+      font-size: 0.95rem;
+      color: #222;
+      margin-bottom: 2px;
+    }
+    .img-card-info span {
+      font-size: 0.8rem;
+      color: #777;
+    }
+    .check-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .img-card.selected .check-icon { display: flex; }
+
+    /* 다중/단일 선택 옵션 버튼 */
+    .opt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .opt-btn {
+      background: #fff;
+      border: 1.5px solid #EAE8E2;
+      border-radius: 16px;
+      padding: 18px 20px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #333;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .opt-btn:hover { border-color: var(--primary); background: #F8FAFB; }
+    .opt-btn.selected {
+      border-color: var(--primary);
+      background: #EFF4F7;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* 텍스트 입력창 */
+    .input-box, .textarea-box {
+      width: 100%;
+      padding: 16px 18px;
+      border: 1.5px solid #E0DED7;
+      border-radius: 16px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      outline: none;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+    .textarea-box { height: 110px; resize: none; line-height: 1.6; }
+    .input-box:focus, .textarea-box:focus { border-color: var(--primary); }
+
+    /* 하단 이동 바 */
+    .nav-bar {
+      margin-top: auto;
+      padding-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .btn-main {
+      flex: 1;
+      background: var(--dark);
+      color: #fff;
+      padding: 18px;
+      border-radius: 18px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-main:hover { background: var(--primary); }
+    .btn-back {
+      background: #EAE8E2;
+      color: #666;
+      padding: 18px 22px;
+      border-radius: 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* 안내 박스 */
+    .notice-card {
+      background: #F4F6F7;
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid #E0E7EC;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: #444;
+      margin-bottom: 24px;
+    }
   </style>
 </head>
 <body>
-  <div class="app-card">
-    <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
-    <div class="header-bar"><span>lets_pebblous</span><a href="/">홈으로 ✕</a></div>
+  <div class="smore-container">
+    <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+    
+    <div class="top-bar">
+      <span class="top-brand">lets_pebblous</span>
+      <a href="/" class="top-close">홈으로 ✕</a>
+    </div>
 
-    <!-- 0. 이벤트 인트로 (기획안 1~3번 내용) -->
+    <!-- 0. 인트로 (Smore 메인 커버) -->
     <div class="step-page active" id="page0">
-      <div>
-        <span style="display:inline-block; padding:5px 12px; background:#4A6B82; color:#fff; border-radius:999px; font-size:0.75rem; font-weight:700; margin-bottom:12px;">WINTER MOOD STYLING</span>
-        <h1 class="q-title" style="font-size: clamp(1.6rem, 4.5vw, 2.1rem);">이번 겨울,<br>나만의 무드를 스타일링하다.</h1>
-        <p class="q-sub">단순한 제품 증정이 아닌, 나의 취향과 겨울 코디 고민을 해결해 드리는 <strong>1:1 온라인 겨울 맞춤 스타일링 컨설팅</strong> 이벤트입니다.</p>
+      <div class="page-inner">
+        <div class="cover-visual-grid">
+          <img src="style_minimal.jpg" alt="winter mood" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80'">
+          <img src="style_casual.jpg" alt="winter look" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80'">
+        </div>
 
-        <div class="event-info-box">
-          <p>🎁 <strong>선정 혜택:</strong> 1:1 온라인 겨울 스타일링 컨설팅 (5명 추첨)</p>
-          <p>📄 <strong>제공 결과물:</strong> 겨울 코디 3세트 + 개인 맞춤 룩북 이미지 1장</p>
-          <p>🎟 <strong>추가 혜택:</strong> lets_pebblous 겨울 제품 시크릿 할인 쿠폰</p>
+        <span class="tag-badge">WINTER MOOD STYLING</span>
+        <h1 class="q-title">이번 겨울,<br>나만의 무드를 스타일링하다.</h1>
+        <p class="q-sub">단순한 제품 증정이 아닌, 나의 취향과 겨울 코디 고민을 해결해 드리는 1:1 온라인 맞춤 컨설팅 이벤트입니다.</p>
+
+        <div class="notice-card">
+          <p>🎁 <strong>선정 혜택:</strong> 1:1 온라인 겨울 스타일링 컨설팅 (5명)</p>
+          <p>✨ <strong>제공 내용:</strong> 개인 코디 3세트 + 맞춤 룩북 이미지 1장</p>
+          <p>🎟 <strong>신청자 전원:</strong> lets_pebblous 겨울 제품 10% 시크릿 쿠폰</p>
+        </div>
+
+        <div class="nav-bar">
+          <button class="btn-main" onclick="nextPage(1)">스타일링 신청하기 ➔</button>
         </div>
       </div>
-      <div class="bottom-nav"><button class="btn-next" onclick="goToStep(1)">신청서 작성하기 ➔</button></div>
     </div>
 
-    <!-- 1. 기본 인적 사항 (이름/인스타 계정, 연락처) -->
+    <!-- 1. 기본 인적사항 (이름 또는 인스타 계정 / 휴대폰 번호) -->
     <div class="step-page" id="page1">
-      <div class="q-number">Step 1 / 6</div>
-      <h2 class="q-title">신청자 정보를 입력해주세요</h2>
-      <p class="q-sub">컨설팅 결과물 전달 및 인스타그램 팔로우 확인을 위해 사용됩니다.</p>
+      <div class="page-inner">
+        <div class="q-step-indicator">Step 1 / 6</div>
+        <h2 class="q-title">이름 또는 인스타그램 계정을 알려주세요</h2>
+        <p class="q-sub">선정 발표 및 컨설팅 리포트 전달을 위해 활용됩니다.</p>
 
-      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">이름 또는 인스타그램 계정 (@id) *</label>
-      <input type="text" id="custName" class="input-field" placeholder="예: 홍길동 또는 @lets_pebblous">
+        <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">이름 또는 인스타그램 계정 (@id) *</label>
+        <input type="text" id="custName" class="input-box" placeholder="예: 홍길동 또는 @lets_pebblous">
 
-      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">결과물을 수신할 연락처 (휴대폰 번호) *</label>
-      <input type="tel" id="custPhone" class="input-field" placeholder="010-0000-0000">
+        <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">연락처 (휴대폰 번호) *</label>
+        <input type="tel" id="custPhone" class="input-box" placeholder="010-0000-0000">
 
-      <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToStep(0)">이전</button>
-        <button class="btn-next" onclick="validateStep1()">다음 ➔</button>
+        <div class="nav-bar">
+          <button class="btn-back" onclick="nextPage(0)">이전</button>
+          <button class="btn-main" onclick="validateStep1()">다음 ➔</button>
+        </div>
       </div>
     </div>
 
-    <!-- 2. 평소 선호하는 스타일 (이미지 4가지 선택) -->
+    <!-- 2. 평소 선호하는 스타일 (이미지 4종 선택) -->
     <div class="step-page" id="page2">
-      <div class="q-number">Step 2 / 6</div>
-      <h2 class="q-title">평소 선호하는 스타일은 무엇인가요?</h2>
-      <p class="q-sub">가장 마음에 드는 스타일 취향 카드를 하나 선택해 주세요.</p>
+      <div class="page-inner">
+        <div class="q-step-indicator">Step 2 / 6</div>
+        <h2 class="q-title">평소 선호하는 스타일을 선택해주세요</h2>
+        <p class="q-sub">가장 마음에 드는 스타일 취향 카드를 하나 골라주세요.</p>
 
-      <div class="style-grid">
-        <!-- Minimal -->
-        <div class="style-card" onclick="selectStyleCard(this, 'MINIMAL')">
-          <img src="style_minimal.jpg" class="style-img" alt="MINIMAL" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80'">
-          <div class="style-info">
-            <strong>MINIMAL</strong>
-            <span>깔끔하고 절제된 스타일</span>
+        <div class="img-select-grid">
+          <div class="img-card" onclick="selectStyle(this, 'MINIMAL')">
+            <div class="check-icon">✓</div>
+            <img src="style_minimal.jpg" alt="MINIMAL" onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80'">
+            <div class="img-card-info">
+              <strong>MINIMAL</strong>
+              <span>깔끔하고 절제된 스타일</span>
+            </div>
           </div>
-        </div>
-        <!-- Casual -->
-        <div class="style-card" onclick="selectStyleCard(this, 'CASUAL')">
-          <img src="style_casual.jpg" class="style-img" alt="CASUAL" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80'">
-          <div class="style-info">
-            <strong>CASUAL</strong>
-            <span>편안하고 자연스러운 스타일</span>
-          </div>
-        </div>
-        <!-- Feminine -->
-        <div class="style-card" onclick="selectStyleCard(this, 'FEMININE')">
-          <img src="style_feminine.jpg" class="style-img" alt="FEMININE" onerror="this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80'">
-          <div class="style-info">
-            <strong>FEMININE</strong>
-            <span>부드럽고 세련된 스타일</span>
-          </div>
-        </div>
-        <!-- Street -->
-        <div class="style-card" onclick="selectStyleCard(this, 'STREET')">
-          <img src="style_street.jpg" class="style-img" alt="STREET" onerror="this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80'">
-          <div class="style-info">
-            <strong>STREET</strong>
-            <span>트렌디하고 개성 있는 스타일</span>
-          </div>
-        </div>
-      </div>
 
-      <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToStep(1)">이전</button>
-        <button class="btn-next" onclick="validateStep2()">다음 ➔</button>
+          <div class="img-card" onclick="selectStyle(this, 'CASUAL')">
+            <div class="check-icon">✓</div>
+            <img src="style_casual.jpg" alt="CASUAL" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80'">
+            <div class="img-card-info">
+              <strong>CASUAL</strong>
+              <span>편안하고 자연스러운 스타일</span>
+            </div>
+          </div>
+
+          <div class="img-card" onclick="selectStyle(this, 'FEMININE')">
+            <div class="check-icon">✓</div>
+            <img src="style_feminine.jpg" alt="FEMININE" onerror="this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80'">
+            <div class="img-card-info">
+              <strong>FEMININE</strong>
+              <span>부드럽고 세련된 스타일</span>
+            </div>
+          </div>
+
+          <div class="img-card" onclick="selectStyle(this, 'STREET')">
+            <div class="check-icon">✓</div>
+            <img src="style_street.jpg" alt="STREET" onerror="this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80'">
+            <div class="img-card-info">
+              <strong>STREET</strong>
+              <span>트렌디하고 개성 있는 스타일</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-bar">
+          <button class="btn-back" onclick="nextPage(1)">이전</button>
+          <button class="btn-main" onclick="validateStep2()">다음 ➔</button>
+        </div>
       </div>
     </div>
 
-    <!-- 3. 겨울 패션 고민점 & 자주 입는 컬러 -->
+    <!-- 3. 겨울 패션 고민점 -->
     <div class="step-page" id="page3">
-      <div class="q-number">Step 3 / 6</div>
-      <h2 class="q-title">겨울 패션에서 가장 고민되는 점은?</h2>
-      <p class="q-sub">해결하고 싶은 스타일 고민을 구체적으로 알려주세요.</p>
+      <div class="page-inner">
+        <div class="q-step-indicator">Step 3 / 6</div>
+        <h2 class="q-title">겨울 패션에서 가장 고민되는 점은?</h2>
+        <p class="q-sub">공감되는 항목을 선택하고 자세한 고민을 적어주세요. (복수 선택 가능)</p>
 
-      <div class="chip-group" id="worryChips">
-        <div class="chip" onclick="toggleChip(this)">부해 보이지 않는 슬림한 핏</div>
-        <div class="chip" onclick="toggleChip(this)">단조로운 아우터 탈피 / 컬러 매칭</div>
-        <div class="chip" onclick="toggleChip(this)">따뜻하면서도 감각적인 레이어드</div>
-        <div class="chip" onclick="toggleChip(this)">체형 커버 및 실루엣 연출</div>
-      </div>
+        <div class="opt-list" id="worryList">
+          <div class="opt-btn" onclick="toggleMulti(this)"><span>부해 보이지 않는 슬림한 핏 연출</span><span>+</span></div>
+          <div class="opt-btn" onclick="toggleMulti(this)"><span>단조로운 블랙/그레이 아우터 탈피</span><span>+</span></div>
+          <div class="opt-btn" onclick="toggleMulti(this)"><span>보온성과 멋을 모두 챙기는 레이어드</span><span>+</span></div>
+          <div class="opt-btn" onclick="toggleMulti(this)"><span>체형 커버 및 실루엣 비율 개선</span><span>+</span></div>
+        </div>
 
-      <textarea id="worryDetail" class="textarea-field" placeholder="더 자세한 고민이나 상황(출근룩, 데이트룩 등)을 적어주셔도 좋아요."></textarea>
+        <textarea id="worryDetail" class="textarea-box" placeholder="그 외 평소 고민되는 자리(출근룩, 데이트룩 등)나 구체적인 고민이 있다면 자유롭게 적어주세요."></textarea>
 
-      <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToStep(2)">이전</button>
-        <button class="btn-next" onclick="goToStep(4)">다음 ➔</button>
-      </div>
-    </div>
-
-    <!-- 4. 자주 입는 컬러 & 원하는 스타일링 무드 -->
-    <div class="step-page" id="page4">
-      <div class="q-number">Step 4 / 6</div>
-      <h2 class="q-title">자주 입는 컬러와 원하는 무드는?</h2>
-      <p class="q-sub">나만의 겨울 색감 팔레트를 조합해 드립니다.</p>
-
-      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">자주 입는 컬러 *</label>
-      <input type="text" id="custColor" class="input-field" placeholder="예: 블랙, 차콜, 크림, 베이지, 카키 등">
-
-      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">이번 겨울 연출하고 싶은 스타일링 무드 *</label>
-      <input type="text" id="custMood" class="input-field" placeholder="예: 시크하고 단정한 직장인 룩, 따뜻하고 여유로운 카페 무드 등">
-
-      <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToStep(3)">이전</button>
-        <button class="btn-next" onclick="validateStep4()">다음 ➔</button>
-      </div>
-    </div>
-
-    <!-- 5. 옷 입을 때 중요하게 생각하는 부분 & 참고 사진 링크 -->
-    <div class="step-page" id="page5">
-      <div class="q-number">Step 5 / 6</div>
-      <h2 class="q-title">옷을 입을 때 가장 중요하게 생각하는 부분은?</h2>
-      <p class="q-sub">컨설팅 시 우선적으로 고려할 가치를 선택해 주세요.</p>
-
-      <div class="chip-group" id="importantChips">
-        <div class="chip" onclick="toggleChip(this)">핏 & 실루엣</div>
-        <div class="chip" onclick="toggleChip(this)">소재감 & 텍스처</div>
-        <div class="chip" onclick="toggleChip(this)">편안한 활동성</div>
-        <div class="chip" onclick="toggleChip(this)">확실한 보온성</div>
-        <div class="chip" onclick="toggleChip(this)">유행을 타지 않는 타임리스</div>
-      </div>
-
-      <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">참고하고 싶은 스타일 사진 또는 인스타 링크 (선택)</label>
-      <input type="text" id="custRef" class="input-field" placeholder="인스타그램 게시물 링크나 핀터레스트 링크">
-
-      <div class="bottom-nav">
-        <button class="btn-prev" onclick="goToStep(4)">이전</button>
-        <button class="btn-next" onclick="submitWinterEvent()">신청서 제출 완료 ➔</button>
-      </div>
-    </div>
-
-    <!-- 6. 신청 완료 페이지 -->
-    <div class="step-page" id="page6">
-      <div style="text-align: center; margin: auto 0;">
-        <div style="font-size: 3rem; margin-bottom: 12px;">❄️</div>
-        <h2 class="q-title">신청이 정상 접수되었습니다!</h2>
-        <p class="q-sub" id="resSummary" style="line-height:1.65;"></p>
-
-        <div style="background:#fff; border:1px solid #E6E4DD; border-radius:20px; padding:22px; text-align:left; font-size:0.92rem; line-height:1.8; color:#444; margin-bottom:20px;">
-          📅 <strong>선정 발표:</strong> 이벤트 마감 후 개별 안내 및 인스타그램 공지<br>
-          ✨ <strong>당첨 시 제공:</strong> 개인 코디 3세트 + 맞춤 룩북 이미지 1장<br>
-          🎁 <strong>신청 감사 쿠폰:</strong> lets_pebblous 10% 시크릿 코드: <strong style="color:#4A6B82;">WINTERMOOD</strong>
+        <div class="nav-bar">
+          <button class="btn-back" onclick="nextPage(2)">이전</button>
+          <button class="btn-main" onclick="nextPage(4)">다음 ➔</button>
         </div>
       </div>
-
-      <div class="bottom-nav"><a href="/" class="btn-next">홈으로 이동</a></div>
     </div>
+
+    <!-- 4. 자주 입는 컬러 & 원하는 무드 -->
+    <div class="step-page" id="page4">
+      <div class="page-inner">
+        <div class="q-step-indicator">Step 4 / 6</div>
+        <h2 class="q-title">자주 입는 컬러와 원하는 무드는?</h2>
+        <p class="q-sub">나만의 겨울 시그니처 톤을 조합해 드립니다.</p>
+
+        <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">자주 입는 컬러 *</label>
+        <input type="text" id="custColor" class="input-box" placeholder="예: 블랙, 차콜, 크림, 베이지, 카키, 네이비 등">
+
+        <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">이번 겨울 원하는 스타일링 무드 *</label>
+        <input type="text" id="custMood" class="input-box" placeholder="예: 단정하고 감각적인 오피스 룩, 편안하고 포근한 카페 룩 등">
+
+        <div class="nav-bar">
+          <button class="btn-back" onclick="nextPage(3)">이전</button>
+          <button class="btn-main" onclick="validateStep4()">다음 ➔</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 중요 가치 & 참고 사진 링크 -->
+    <div class="step-page" id="page5">
+      <div class="page-inner">
+        <div class="q-step-indicator">Step 5 / 6</div>
+        <h2 class="q-title">옷을 입을 때 가장 중요하게 생각하는 것은?</h2>
+        <p class="q-sub">컨설팅 시 가장 먼저 반영할 가치를 골라주세요.</p>
+
+        <div class="opt-list" id="valueList">
+          <div class="opt-btn" onclick="toggleMulti(this)"><span>핏 & 실루엣 (균형감 있는 라인)</span><span>+</span></div>
+          <div class="opt-btn" onclick="toggleMulti(this)"><span>소재감 & 텍스처 (고급스러운 원단감)</span><span>+</span></div>
+          <div class="opt-btn" onclick="toggleMulti(this)"><span>편안함 & 실용성 (움직임이 편한 착용감)</span><span>+</span></div>
+          <div class="opt-btn" onclick="toggleMulti(this)"><span>보온성 (추위를 막아주는 따뜻함)</span><span>+</span></div>
+        </div>
+
+        <label style="font-size:0.88rem; font-weight:700; color:#555; display:block; margin-bottom:6px;">참고하고 싶은 스타일 사진 링크 (선택)</label>
+        <input type="text" id="custRef" class="input-box" placeholder="인스타그램 게시물이나 핀터레스트 링크">
+
+        <div class="nav-bar">
+          <button class="btn-back" onclick="nextPage(4)">이전</button>
+          <button class="btn-main" onclick="submitForm()">신청 완료하기 ➔</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 완료 화면 (Smore 결과 화면) -->
+    <div class="step-page" id="page6">
+      <div class="page-inner" style="justify-content: center; text-align: center;">
+        <div style="font-size: 3.2rem; margin-bottom: 12px;">❄️</div>
+        <h2 class="q-title" style="margin-bottom: 8px;">신청서 접수가 완료되었습니다!</h2>
+        <p class="q-sub" id="resSummary" style="margin-bottom: 24px;"></p>
+
+        <div class="notice-card" style="text-align: left;">
+          <p>📅 <strong>선정 발표:</strong> 11일차 인스타그램 피드 및 개별 연락</p>
+          <p>🎁 <strong>컨설팅 결과물:</strong> 개인 코디 3세트 + 맞춤 룩북 이미지</p>
+          <p>🎟 <strong>신청 감사 쿠폰 코드:</strong> <span style="font-family:monospace; font-weight:800; color:var(--primary);">WINTERMOOD</span></p>
+        </div>
+
+        <div class="nav-bar">
+          <a href="/" class="btn-main">홈으로 돌아가기</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
-    let formData = {
+    let appData = {
       name: '',
       phone: '',
       preferredStyle: '',
@@ -261,10 +531,10 @@
       referenceUrl: ''
     };
 
-    function goToStep(idx) {
+    function nextPage(step) {
       document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + idx).classList.add('active');
-      document.getElementById('progressBar').style.width = (idx * (100 / 6)) + '%';
+      document.getElementById('page' + step).classList.add('active');
+      document.getElementById('progressBar').style.width = (step * (100 / 6)) + '%';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -272,30 +542,34 @@
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
       if (!name || !phone) {
-        alert('이름(계정)과 연락처를 모두 입력해주세요!');
+        alert('이름(계정)과 휴대폰 번호를 모두 입력해주세요!');
         return;
       }
-      formData.name = name;
-      formData.phone = phone;
-      goToStep(2);
+      appData.name = name;
+      appData.phone = phone;
+      nextPage(2);
     }
 
-    function selectStyleCard(card, styleName) {
-      document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      formData.preferredStyle = styleName;
+    function selectStyle(el, styleName) {
+      document.querySelectorAll('.img-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      appData.preferredStyle = styleName;
     }
 
     function validateStep2() {
-      if (!formData.preferredStyle) {
+      if (!appData.preferredStyle) {
         alert('선호하는 스타일 카드를 1개 선택해주세요!');
         return;
       }
-      goToStep(3);
+      nextPage(3);
     }
 
-    function toggleChip(chip) {
-      chip.classList.toggle('selected');
+    function toggleMulti(el) {
+      el.classList.toggle('selected');
+      const icon = el.querySelector('span:last-child');
+      if (icon) {
+        icon.innerText = el.classList.contains('selected') ? '✓' : '+';
+      }
     }
 
     function validateStep4() {
@@ -305,30 +579,29 @@
         alert('자주 입는 컬러와 원하는 무드를 입력해주세요!');
         return;
       }
-      formData.color = color;
-      formData.mood = mood;
-      goToStep(5);
+      appData.color = color;
+      appData.mood = mood;
+      nextPage(5);
     }
 
-    async function submitWinterEvent() {
-      // 칩 데이터 수집
-      formData.worries = Array.from(document.querySelectorAll('#worryChips .chip.selected')).map(c => c.innerText);
-      formData.worryDetail = document.getElementById('worryDetail').value.trim();
-      formData.importances = Array.from(document.querySelectorAll('#importantChips .chip.selected')).map(c => c.innerText);
-      formData.referenceUrl = document.getElementById('custRef').value.trim();
+    async function submitForm() {
+      appData.worries = Array.from(document.querySelectorAll('#worryList .opt-btn.selected')).map(el => el.querySelector('span:first-child').innerText);
+      appData.worryDetail = document.getElementById('worryDetail').value.trim();
+      appData.importances = Array.from(document.querySelectorAll('#valueList .opt-btn.selected')).map(el => el.querySelector('span:first-child').innerText);
+      appData.referenceUrl = document.getElementById('custRef').value.trim();
 
       try {
         const res = await fetch('/api/winter-consulting', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(appData)
         });
         const json = await res.json();
         if (json.success) {
           document.getElementById('resSummary').innerHTML = `
-            <strong>${formData.name}</strong>님의 <strong>[${formData.preferredStyle} 스타일]</strong> 컨설팅 신청서가 lets_pebblous에 등록되었습니다.
+            <strong>${appData.name}</strong>님의 <strong>[${appData.preferredStyle}]</strong> 무드 스타일링 신청서가 정상 전달되었습니다.
           `;
-          goToStep(6);
+          nextPage(6);
         } else {
           alert('신청 실패: ' + json.message);
         }
