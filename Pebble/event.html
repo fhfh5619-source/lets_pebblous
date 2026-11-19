@@ -509,7 +509,7 @@
   <!-- 자바스크립트 전체 로직 (구글 스프레드시트 직결 연동) -->
   <script>
     // ⭐️ [필수] 구글 앱스 스크립트 웹앱 URL을 아래 큰따옴표 안에 넣어주세요!
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz8KzSl2P62zRNE0g-1A3G9qYbMFNIPvwYu520hJ1KG4dNSEqVTVrm6py_8PLuc-gnw/exec";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwFuTUKqUzAIPXca0WUeLb9TpXznvfAmAspYkRLl28GRphnsReIvl3uSRbKfXQBqAXv/exec";
 
     let appData = {
       name: '',
@@ -590,7 +590,7 @@
 
       try {
         // 구글 웹앱 URL이 입력되어 있을 때 구글 시트로 직접 POST
-        if (GOOGLE_SHEET_URL && !GOOGLE_SHEET_URL.includes("https://script.google.com/macros/s/AKfycbz8KzSl2P62zRNE0g-1A3G9qYbMFNIPvwYu520hJ1KG4dNSEqVTVrm6py_8PLuc-gnw/exec")) {
+        if (GOOGLE_SHEET_URL && !GOOGLE_SHEET_URL.includes("여기에_구글")) {
           await fetch(GOOGLE_SHEET_URL, {
             method: 'POST',
             mode: 'no-cors',
