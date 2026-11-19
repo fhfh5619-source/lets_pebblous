@@ -610,5 +610,42 @@
       }
     }
   </script>
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz8KzSl2P62zRNE0g-1A3G9qYbMFNIPvwYu520hJ1KG4dNSEqVTVrm6py_8PLuc-gnw/exec";
+
+    async function submitForm() {
+      appData.worries = Array.from(document.querySelectorAll('#worryList .opt-btn.selected')).map(el => el.querySelector('span:first-child').innerText);
+      appData.worryDetail = document.getElementById('worryDetail').value.trim();
+      appData.importances = Array.from(document.querySelectorAll('#valueList .opt-btn.selected')).map(el => el.querySelector('span:first-child').innerText);
+      appData.referenceUrl = document.getElementById('custRef').value.trim();
+
+      // 전송 시작 (로딩 처리)
+      const submitBtn = event.target;
+      submitBtn.innerText = "접수 중...";
+      submitBtn.disabled = true;
+
+      try {
+        // 구글 스프레드시트로 직접 전송
+        await fetch(GOOGLE_SHEET_URL, {
+          method: 'POST',
+          mode: 'no-cors', // 구글 스크립트 크로스도메인 허용
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: "겨울스타일링이벤트",
+            ...appData
+          })
+        });
+
+        // 성공 화면으로 이동
+        document.getElementById('resSummary').innerHTML = `
+          <strong>${appData.name}</strong>님의 <strong>[${appData.preferredStyle}]</strong> 무드 스타일링 신청서가 정상 전달되었습니다.
+        `;
+        nextPage(6);
+      } catch (e) {
+        console.error(e);
+        // 에러가 나더라도 제출 완료 화면으로 유도
+        nextPage(6);
+      }
+    }
+    </script>
 </body>
 </html>
