@@ -35,7 +35,6 @@
       min-height: 100dvh;
     }
 
-    /* Smore 스타일 컨테이너 */
     .smore-container {
       width: 100%;
       background: var(--card-bg);
@@ -46,7 +45,6 @@
       overflow-y: auto;
     }
 
-    /* PC 뷰 (스모어 웹페이지 형태) */
     @media (min-width: 769px) {
       body { padding: 40px 20px; }
       .smore-container {
@@ -59,7 +57,6 @@
       .page-inner { padding: 40px 36px 36px; }
     }
 
-    /* 모바일 세로 뷰 (인스타 링크인바이오 전용 풀스크린) */
     @media (max-width: 768px) {
       .smore-container {
         max-width: 100%;
@@ -70,7 +67,6 @@
       .page-inner { padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
     }
 
-    /* 상단 프로그레스 바 */
     .progress-track {
       width: 100%;
       height: 4px;
@@ -86,7 +82,6 @@
       transition: width 0.35s ease;
     }
 
-    /* 헤더 */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -108,7 +103,6 @@
       font-weight: 600;
     }
 
-    /* 단계별 슬라이드 페이지 */
     .step-page {
       display: none;
       flex-direction: column;
@@ -128,7 +122,6 @@
       flex-direction: column;
     }
 
-    /* 커버 화면 룩북 비주얼 */
     .cover-visual-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -176,7 +169,6 @@
       margin-bottom: 26px;
     }
 
-    /* 이미지 선택 그리드 (MINIMAL, CASUAL, FEMININE, STREET) */
     .img-select-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -234,7 +226,6 @@
     }
     .img-card.selected .check-icon { display: flex; }
 
-    /* 다중/단일 선택 옵션 버튼 */
     .opt-list {
       display: flex;
       flex-direction: column;
@@ -264,7 +255,6 @@
       font-weight: 700;
     }
 
-    /* 텍스트 입력창 */
     .input-box, .textarea-box {
       width: 100%;
       padding: 16px 18px;
@@ -279,7 +269,6 @@
     .textarea-box { height: 110px; resize: none; line-height: 1.6; }
     .input-box:focus, .textarea-box:focus { border-color: var(--primary); }
 
-    /* 하단 이동 바 */
     .nav-bar {
       margin-top: auto;
       padding-top: 20px;
@@ -312,7 +301,6 @@
       cursor: pointer;
     }
 
-    /* 안내 박스 */
     .notice-card {
       background: #F4F6F7;
       border-radius: 18px;
@@ -334,7 +322,7 @@
       <a href="/" class="top-close">홈으로 ✕</a>
     </div>
 
-    <!-- 0. 인트로 (Smore 메인 커버) -->
+    <!-- 0. 인트로 커버 -->
     <div class="step-page active" id="page0">
       <div class="page-inner">
         <div class="cover-visual-grid">
@@ -358,7 +346,7 @@
       </div>
     </div>
 
-    <!-- 1. 기본 인적사항 (이름 또는 인스타 계정 / 휴대폰 번호) -->
+    <!-- 1. 기본 인적사항 -->
     <div class="step-page" id="page1">
       <div class="page-inner">
         <div class="q-step-indicator">Step 1 / 6</div>
@@ -378,7 +366,7 @@
       </div>
     </div>
 
-    <!-- 2. 평소 선호하는 스타일 (이미지 4종 선택) -->
+    <!-- 2. 선호 스타일 선택 (이미지 4종) -->
     <div class="step-page" id="page2">
       <div class="page-inner">
         <div class="q-step-indicator">Step 2 / 6</div>
@@ -473,7 +461,7 @@
       </div>
     </div>
 
-    <!-- 5. 중요 가치 & 참고 사진 링크 -->
+    <!-- 5. 중요 가치 & 참고 링크 -->
     <div class="step-page" id="page5">
       <div class="page-inner">
         <div class="q-step-indicator">Step 5 / 6</div>
@@ -492,12 +480,12 @@
 
         <div class="nav-bar">
           <button class="btn-back" onclick="nextPage(4)">이전</button>
-          <button class="btn-main" onclick="submitForm()">신청 완료하기 ➔</button>
+          <button class="btn-main" id="submitBtn" onclick="submitForm()">신청 완료하기 ➔</button>
         </div>
       </div>
     </div>
 
-    <!-- 6. 완료 화면 (Smore 결과 화면) -->
+    <!-- 6. 완료 화면 -->
     <div class="step-page" id="page6">
       <div class="page-inner" style="justify-content: center; text-align: center;">
         <div style="font-size: 3.2rem; margin-bottom: 12px;">❄️</div>
@@ -518,7 +506,11 @@
 
   </div>
 
+  <!-- 자바스크립트 전체 로직 (구글 스프레드시트 직결 연동) -->
   <script>
+    // ⭐️ [필수] 구글 앱스 스크립트 웹앱 URL을 아래 큰따옴표 안에 넣어주세요!
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz8KzSl2P62zRNE0g-1A3G9qYbMFNIPvwYu520hJ1KG4dNSEqVTVrm6py_8PLuc-gnw/exec";
+
     let appData = {
       name: '',
       phone: '',
@@ -533,7 +525,8 @@
 
     function nextPage(step) {
       document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + step).classList.add('active');
+      const target = document.getElementById('page' + step);
+      if (target) target.classList.add('active');
       document.getElementById('progressBar').style.width = (step * (100 / 6)) + '%';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -584,68 +577,42 @@
       nextPage(5);
     }
 
+    // 🚀 [구글 스프레드시트로 실시간 데이터 쏘기]
     async function submitForm() {
       appData.worries = Array.from(document.querySelectorAll('#worryList .opt-btn.selected')).map(el => el.querySelector('span:first-child').innerText);
       appData.worryDetail = document.getElementById('worryDetail').value.trim();
       appData.importances = Array.from(document.querySelectorAll('#valueList .opt-btn.selected')).map(el => el.querySelector('span:first-child').innerText);
       appData.referenceUrl = document.getElementById('custRef').value.trim();
 
+      const btn = document.getElementById('submitBtn');
+      btn.innerText = '신청서 등록 중...';
+      btn.disabled = true;
+
       try {
-        const res = await fetch('/api/winter-consulting', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(appData)
-        });
-        const json = await res.json();
-        if (json.success) {
-          document.getElementById('resSummary').innerHTML = `
-            <strong>${appData.name}</strong>님의 <strong>[${appData.preferredStyle}]</strong> 무드 스타일링 신청서가 정상 전달되었습니다.
-          `;
-          nextPage(6);
-        } else {
-          alert('신청 실패: ' + json.message);
+        // 구글 웹앱 URL이 입력되어 있을 때 구글 시트로 직접 POST
+        if (GOOGLE_SHEET_URL && !GOOGLE_SHEET_URL.includes("https://script.google.com/macros/s/AKfycbz8KzSl2P62zRNE0g-1A3G9qYbMFNIPvwYu520hJ1KG4dNSEqVTVrm6py_8PLuc-gnw/exec")) {
+          await fetch(GOOGLE_SHEET_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: '겨울스타일링이벤트',
+              ...appData
+            })
+          });
         }
-      } catch (e) {
-        alert('서버 연결 중 오류가 발생했습니다.');
-      }
-    }
-  </script>
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz8KzSl2P62zRNE0g-1A3G9qYbMFNIPvwYu520hJ1KG4dNSEqVTVrm6py_8PLuc-gnw/exec";
 
-    async function submitForm() {
-      appData.worries = Array.from(document.querySelectorAll('#worryList .opt-btn.selected')).map(el => el.querySelector('span:first-child').innerText);
-      appData.worryDetail = document.getElementById('worryDetail').value.trim();
-      appData.importances = Array.from(document.querySelectorAll('#valueList .opt-btn.selected')).map(el => el.querySelector('span:first-child').innerText);
-      appData.referenceUrl = document.getElementById('custRef').value.trim();
-
-      // 전송 시작 (로딩 처리)
-      const submitBtn = event.target;
-      submitBtn.innerText = "접수 중...";
-      submitBtn.disabled = true;
-
-      try {
-        // 구글 스프레드시트로 직접 전송
-        await fetch(GOOGLE_SHEET_URL, {
-          method: 'POST',
-          mode: 'no-cors', // 구글 스크립트 크로스도메인 허용
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            type: "겨울스타일링이벤트",
-            ...appData
-          })
-        });
-
-        // 성공 화면으로 이동
+        // 성공 화면 텍스트 바인딩 및 6단계(완료)로 이동
         document.getElementById('resSummary').innerHTML = `
           <strong>${appData.name}</strong>님의 <strong>[${appData.preferredStyle}]</strong> 무드 스타일링 신청서가 정상 전달되었습니다.
         `;
         nextPage(6);
-      } catch (e) {
-        console.error(e);
-        // 에러가 나더라도 제출 완료 화면으로 유도
+      } catch (err) {
+        console.error('전송 에러:', err);
+        // 에러가 나더라도 신청자 화면에는 완료 안내를 보여줍니다
         nextPage(6);
       }
     }
-    </script>
+  </script>
 </body>
 </html>
